@@ -1,5 +1,6 @@
 
 import static java.lang.Thread.currentThread;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,23 +15,33 @@ import java.util.logging.Logger;
  * @author johnd
  */
 public class Productor_pantalla extends Thread {
-    private Buffer buffer;
+    Semaphore mutex;
+    Semaphore dato;
+    Semaphore espacio;
     
-    public Productor_pantalla(Buffer buffer){
-        this.buffer= buffer;
+    public Productor_pantalla(Semaphore mutex, Semaphore dato, Semaphore espacio){
+        this.mutex= mutex;
+        this.dato= dato;
+        this.espacio= espacio;
+        
     }
     
     @Override
     public void run(){
         while (Main.day!=30) {            
-            try {
-            buffer.producir(2, 3);
-            System.out.println("El productor " + currentThread() + " produjo 2 pantallas");
-            Thread.sleep(1000);
+           try {
+            espacio.acquire();
+            mutex.acquire();
+            Main.n_pantallas+=1;
+            //System.out.println("El productor " + currentThread() + " produjo pantalla");
+            mutex.release();
+            dato.release();
+            Thread.sleep(500);
         } catch (InterruptedException ex) {
             Logger.getLogger(Productor_botones.class.getName()).log(Level.SEVERE, null, ex);
         }
+           
         }
-         
+        
     }
 }

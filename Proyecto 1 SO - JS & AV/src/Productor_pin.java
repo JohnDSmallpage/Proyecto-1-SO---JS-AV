@@ -1,5 +1,6 @@
 
 import static java.lang.Thread.currentThread;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,22 +15,33 @@ import java.util.logging.Logger;
  * @author johnd
  */
 public class Productor_pin extends Thread {
-    private Buffer buffer;
+    Semaphore mutex;
+    Semaphore dato;
+    Semaphore espacio;
     
-    public Productor_pin(Buffer buffer){
-        this.buffer= buffer;
+    public Productor_pin(Semaphore mutex, Semaphore dato, Semaphore espacio){
+        this.mutex= mutex;
+        this.dato= dato;
+        this.espacio= espacio;
+        
     }
     
     @Override
     public void run(){
         while (Main.day!=30) {            
            try {
-            buffer.producir(1, 4);
-            System.out.println("El productor " + currentThread() + " produjo 1 pin");
+            espacio.acquire();
+            mutex.acquire();
+            Main.n_pin+=1;
+            //System.out.println("El productor " + currentThread() + " produjo  pin");
+            mutex.release();
+            dato.release();
             Thread.sleep(3000);
         } catch (InterruptedException ex) {
             Logger.getLogger(Productor_botones.class.getName()).log(Level.SEVERE, null, ex);
-        }  
         }
+           
+        }
+        
     }
 }

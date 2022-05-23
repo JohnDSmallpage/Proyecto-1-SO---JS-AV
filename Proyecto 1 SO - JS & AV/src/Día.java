@@ -13,11 +13,18 @@ import java.util.logging.Logger;
  * @author johnd
  */
 public class Día extends Thread {
+    @Override
     public void run(){
         while (Main.day!=30) {            
           try {
             Main.day++;
               System.out.println(Main.day);
+              System.out.println("El número de teléfonos producido fue: " + Main.n_celulares);
+                System.out.println("El número de pantallas restantes en almacen fue: " + Main.n_pantallas);
+                System.out.println("El número de pines restantes en almacen fue: " + Main.n_pin);
+                System.out.println("El número de cámaras restantes en almacen fue: " + Main.n_camara);
+                System.out.println("El número de botones en almacen fue: " + Main.n_botones);
+                System.out.println("");
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Logger.getLogger(Día.class.getName()).log(Level.SEVERE, null, ex);
