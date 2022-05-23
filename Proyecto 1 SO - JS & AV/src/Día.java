@@ -18,7 +18,7 @@ public class Día extends Thread {
         while (Main.day!=30) {            
           try {
             Main.day++;
-              System.out.println(Main.day);
+              System.out.println("Día: " +  Main.day);
               System.out.println("El número de teléfonos producido fue: " + Main.n_celulares);
                 System.out.println("El número de pantallas restantes en almacen fue: " + Main.n_pantallas);
                 System.out.println("El número de pines restantes en almacen fue: " + Main.n_pin);
