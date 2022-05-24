@@ -69,24 +69,24 @@ public class Main {
         dia.start();
         
         botones_1.start();
-        botones_2.start();
-        botones_3.start();
+//        botones_2.start();
+//        botones_3.start();
         
         pantalla_1.start();
-        pantalla_2.start();
-        pantalla_3.start();
+//        pantalla_2.start();
+//        pantalla_3.start();
         
         camara_1.start();
-        camara_2.start();
-        camara_3.start();
+//        camara_2.start();
+//        camara_3.start();
         //camara_4.start();
         
         pin_1.start();
-        pin_2.start();
-        pin_3.start();
+//        pin_2.start();
+//        pin_3.start();
         
         ensam_1.start();
-        ensam_2.start();
+//        ensam_2.start();
         
         while(true){
             if (day==30) {
