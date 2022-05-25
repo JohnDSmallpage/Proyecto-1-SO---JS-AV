@@ -26,12 +26,40 @@ public class maininterfaz extends javax.swing.JFrame {
     //private ImageIcon imagen;
    // private Icon icono;
     
+    public static volatile int n_pantallas;
+    public static volatile int n_botones;
+    public static volatile int n_pin;
+    public static volatile int n_camara;
+    public static volatile int n_celulares;
+    public static volatile int dias_despacho;
+    public static int dia_duracion;
+    public static int max_pantallas;
+    public static int max_botones;
+    public static int max_pin;
+    public static int max_camara;
+    public static int ci_john;
+    public static int ci_ale;
+    
     public maininterfaz() {
         initComponents();
         this.setResizable(false);
         this.setVisible(true);
         this.setSize(800,700);
         this.setLocationRelativeTo(null);
+        this.n_pantallas=n_pantallas;
+        this.n_botones= n_botones;
+        this.n_pin= n_pin;
+        this.n_camara= n_camara;
+        this.n_celulares= n_celulares;
+        this.dias_despacho= dias_despacho;
+        this.dia_duracion= dia_duracion;
+        this.max_pantallas= max_pantallas;
+        this.max_botones= max_botones;
+        this.max_pin= max_pin;
+        this.max_camara= max_camara;
+        this.ci_john= ci_john;
+        this.ci_ale= ci_ale;
+        
         //this.setContentPane(fondo);
         //this.pintarImagen(this.jblImagen1,"/iterfazimg/logo.png");
         
