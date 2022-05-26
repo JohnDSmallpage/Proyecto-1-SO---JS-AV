@@ -1,4 +1,11 @@
+package Clases;
 
+
+import Clases.Productor_pin;
+import Clases.Productor_pantalla;
+import Clases.Productor_camara;
+import Clases.Productor_botones;
+import Clases.Ensamblador;
 import interfaz.maininterfaz;
 
 /*

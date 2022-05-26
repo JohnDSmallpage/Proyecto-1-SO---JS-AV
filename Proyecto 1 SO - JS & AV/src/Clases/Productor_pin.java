@@ -1,4 +1,8 @@
+package Clases;
 
+
+import Clases.Productor_botones;
+import static java.lang.Thread.currentThread;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,12 +17,12 @@ import java.util.logging.Logger;
  *
  * @author johnd
  */
-public class Productor_botones extends Thread{
+public class Productor_pin extends Thread {
     Semaphore mutex;
     Semaphore dato;
     Semaphore espacio;
     
-    public Productor_botones(Semaphore mutex, Semaphore dato, Semaphore espacio){
+    public Productor_pin(Semaphore mutex, Semaphore dato, Semaphore espacio){
         this.mutex= mutex;
         this.dato= dato;
         this.espacio= espacio;
@@ -31,11 +35,11 @@ public class Productor_botones extends Thread{
            try {
             espacio.acquire();
             mutex.acquire();
-            Main.n_botones+=1;
-            //System.out.println("El productor " + currentThread() + " produjo botón");
+            Main.n_pin+=1;
+            //System.out.println("El productor " + currentThread() + " produjo  pin");
             mutex.release();
             dato.release();
-            Thread.sleep(500);
+            Thread.sleep(3000);
         } catch (InterruptedException ex) {
             Logger.getLogger(Productor_botones.class.getName()).log(Level.SEVERE, null, ex);
         }
