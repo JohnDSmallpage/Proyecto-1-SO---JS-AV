@@ -1,4 +1,8 @@
+package Classes;
 
+
+import Classes.Ensamblador;
+import Classes.Día;
 import interfaz.maininterfaz;
 
 /*
@@ -26,7 +30,8 @@ public class Main {
     
     
     public static void main(String[] args) {
-
+        maininterfaz a = new maininterfaz();
+        a.setVisible(true);
         System.out.println("Comienza ejecución");
         Día dia= new Día();
         
