@@ -80,6 +80,8 @@ public class maininterfaz extends javax.swing.JFrame {
     private static Semaphore mutex_pin_ale;
     private static Semaphore mutex_ensam;
     private static Semaphore mutex_ensam_ale;
+    public static Funciones txt;
+    public static String info [];
     
     
     
@@ -111,6 +113,33 @@ public class maininterfaz extends javax.swing.JFrame {
         this.n_celulares_ale=0;
         this.dia_duracion= Integer.parseInt(info[0]);
         this.start=false;
+        this.info=info;
+        this.dato_boton=dato_boton;
+        this.espacio_boton=espacio_boton;
+        this.mutex_boton=mutex_boton;
+        this.dato_camara=dato_camara;
+        this.espacio_camara= espacio_camara;
+        this.mutex_camara=mutex_camara;
+        this.dato_pantalla=dato_pantalla;
+        this.espacio_pantalla= espacio_pantalla;
+        this.mutex_pantalla=mutex_pantalla;
+        this.dato_pin=dato_pin;
+        this.espacio_pin= espacio_pin;
+        this.mutex_pin=mutex_pin;
+        this.dato_boton_ale=dato_boton_ale;
+        this.espacio_boton_ale=espacio_boton_ale;
+        this.mutex_boton_ale=mutex_boton_ale;
+        this.dato_camara_ale=dato_camara_ale;
+        this.espacio_camara_ale= espacio_camara_ale;
+        this.mutex_camara_ale=mutex_camara_ale;
+        this.dato_pantalla_ale=dato_pantalla_ale;
+        this.espacio_pantalla_ale= espacio_pantalla_ale;
+        this.mutex_pantalla_ale=mutex_pantalla_ale;
+        this.dato_pin_ale=dato_pin_ale;
+        this.espacio_pin_ale= espacio_pin_ale;
+        this.mutex_pin_ale=mutex_pin_ale;
+        this.mutex_ensam= mutex_ensam;
+        this.mutex_ensam_ale= mutex_ensam_ale;
         
         //Variables estáticos
         this.max_pantallas= Integer.parseInt(info[2]);
@@ -124,150 +153,52 @@ public class maininterfaz extends javax.swing.JFrame {
         //Semáforos
         //John
         ////botón
-        Semaphore dato_boton= new Semaphore(0,true);
-        Semaphore espacio_boton= new Semaphore(max_botones, true);
-        Semaphore mutex_boton= new Semaphore(1, true);
+        this.dato_boton= new Semaphore(0,true);
+        this.espacio_boton= new Semaphore(max_botones, true);
+        this.mutex_boton= new Semaphore(1, true);
         
         ////camara
-        Semaphore dato_camara= new Semaphore(0, true);
-        Semaphore espacio_camara= new Semaphore(max_camara, true);
-        Semaphore mutex_camara= new Semaphore(1, true);
+        this.dato_camara= new Semaphore(0, true);
+        this.espacio_camara= new Semaphore(max_camara, true);
+        this.mutex_camara= new Semaphore(1, true);
         
         ////pantalla
-        Semaphore dato_pantalla= new Semaphore(0, true);
-        Semaphore espacio_pantalla= new Semaphore(max_pantallas, true);
-        Semaphore mutex_pantalla= new Semaphore(1, true);
+        this.dato_pantalla= new Semaphore(0, true);
+        this.espacio_pantalla= new Semaphore(max_pantallas, true);
+        this.mutex_pantalla= new Semaphore(1, true);
         
         ////pin
-        Semaphore dato_pin= new Semaphore(0, true);
-        Semaphore espacio_pin= new Semaphore(max_pin, true);
-        Semaphore mutex_pin= new Semaphore(1, true);
+        this.dato_pin= new Semaphore(0, true);
+        this.espacio_pin= new Semaphore(max_pin, true);
+        this.mutex_pin= new Semaphore(1, true);
         
         ////ensam
-        Semaphore mutex_ensam= new Semaphore(1,true);
+        this.mutex_ensam= new Semaphore(1,true);
         
         ////ensam ale
-        Semaphore mutex_ensam_ale= new Semaphore(1,true);
+        this.mutex_ensam_ale= new Semaphore(1,true);
         
         //Ale
         
-        Semaphore dato_boton_ale= new Semaphore(0, true);
-        Semaphore espacio_boton_ale= new Semaphore(max_botones, true);
-        Semaphore mutex_boton_ale= new Semaphore(1, true);
+        this.dato_boton_ale= new Semaphore(0, true);
+        this.espacio_boton_ale= new Semaphore(max_botones, true);
+        this.mutex_boton_ale= new Semaphore(1, true);
         
         ////camara
-        Semaphore dato_camara_ale= new Semaphore(0, true);
-        Semaphore espacio_camara_ale= new Semaphore(max_camara, true);
-        Semaphore mutex_camara_ale= new Semaphore(1, true);
+        this.dato_camara_ale= new Semaphore(0, true);
+        this.espacio_camara_ale= new Semaphore(max_camara, true);
+        this.mutex_camara_ale= new Semaphore(1, true);
         
         ////pantalla
-        Semaphore dato_pantalla_ale= new Semaphore(0, true);
-        Semaphore espacio_pantalla_ale= new Semaphore(max_pantallas, true);
-        Semaphore mutex_pantalla_ale= new Semaphore(1, true);
+        this.dato_pantalla_ale= new Semaphore(0, true);
+        this.espacio_pantalla_ale= new Semaphore(max_pantallas, true);
+        this.mutex_pantalla_ale= new Semaphore(1, true);
         
         ////pin
-        Semaphore dato_pin_ale= new Semaphore(0, true);
-        Semaphore espacio_pin_ale= new Semaphore(max_pin, true);
-        Semaphore mutex_pin_ale= new Semaphore(1, true);
+        this.dato_pin_ale= new Semaphore(0, true);
+        this.espacio_pin_ale= new Semaphore(max_pin, true);
+        this.mutex_pin_ale= new Semaphore(1, true);
        
-        //Colas
-        ////John
-        Cola p_botones = new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[7]); i++) {
-            Nodo nodo= new Nodo();
-            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton);
-            nodo.setInfo(hilo_boton);
-            p_botones.Encolar(nodo);
-        }
-        
-        Cola p_camara = new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[9]); i++) {
-            Nodo nodo= new Nodo();
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara);
-            nodo.setInfo(hilo_camara);
-            p_camara.Encolar(nodo);
-        }
-        
-        Cola p_pantalla= new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[6]); i++) {
-            Nodo nodo= new Nodo();
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla);
-            nodo.setInfo(hilo_pantalla);
-            p_pantalla.Encolar(nodo);
-        }
-        
-        Cola p_pin= new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[8]); i++) {
-            Nodo nodo= new Nodo();
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin);
-            nodo.setInfo(hilo_pin);
-            p_pin.Encolar(nodo);
-        }
-        
-        Cola cola_ensam= new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[10]); i++) {
-            Nodo nodo= new Nodo();
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam);
-            nodo.setInfo(hilo_ensam);
-            cola_ensam.Encolar(nodo);
-        }
-        
-        
-        
-        //Aqui con txt se deberían llenar las colas para luego más abajo con el size de las colas representarlo en los jTextfields
-        
-        ////Ale
-        Cola p_botones_ale = new Cola();
-        
-                for (int i = 0; i < Integer.parseInt(info[12]); i++) {
-            Nodo nodo= new Nodo();
-            Productor_botones hilo_boton= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale);
-            nodo.setInfo(hilo_boton);
-            p_botones_ale.Encolar(nodo);
-        }
-        
-        Cola p_camara_ale = new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[14]); i++) {
-            Nodo nodo= new Nodo();
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale);
-            nodo.setInfo(hilo_camara);
-            p_camara_ale.Encolar(nodo);
-        }
-        
-        Cola p_pantalla_ale= new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[11]); i++) {
-            Nodo nodo= new Nodo();
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale);
-            nodo.setInfo(hilo_pantalla);
-            p_pantalla_ale.Encolar(nodo);
-        }
-        
-        Cola p_pin_ale= new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[13]); i++) {
-            Nodo nodo= new Nodo();
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale);
-            nodo.setInfo(hilo_pin);
-            p_pin_ale.Encolar(nodo);
-        }
-        
-        
-        Cola cola_ensam_ale= new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[15]); i++) {
-            Nodo nodo= new Nodo();
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale);
-            nodo.setInfo(hilo_ensam);
-            cola_ensam_ale.Encolar(nodo);
-        }
-        
         
         
         //Asignación de valores en la interfaz
@@ -284,18 +215,19 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField16.setText(Integer.toString(n_camara_ale));
         
         ////Productor y ensamblador John
-        jTextField5.setText(Integer.toString(p_pantalla.getSize()));
-        jTextField6.setText(Integer.toString(p_botones.getSize()));
-        jTextField7.setText(Integer.toString(p_pin.getSize()));
-        jTextField8.setText(Integer.toString(p_camara.getSize()));
-        jTextField9.setText(Integer.toString(cola_ensam.getSize()));
+        jTextField5.setText(info[6]);
+        jTextField6.setText(info[7]);
+        jTextField7.setText(info[8]);
+        jTextField8.setText(info[9]);
+        jTextField9.setText(info[10]);
+        
         
         ////Productor y ensamblador Ale
-        jTextField18.setText(Integer.toString(p_pantalla_ale.getSize()));
-        jTextField19.setText(Integer.toString(p_botones_ale.getSize()));
-        jTextField20.setText(Integer.toString(p_pin_ale.getSize()));
-        jTextField21.setText(Integer.toString(p_camara_ale.getSize()));
-        jTextField22.setText(Integer.toString(cola_ensam_ale.getSize()));
+        jTextField18.setText(info[11]);
+        jTextField19.setText(info[12]);
+        jTextField20.setText(info[13]);
+        jTextField21.setText(info[14]);
+        jTextField22.setText(info[15]);
         
         //Nro de teléfonos ensamblados 
         jTextField11.setText(Integer.toString(n_celulares));
@@ -305,7 +237,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField10.setText(Integer.toString(dias_despacho));
         
         //Inicialización del contador Jefe
-        Jefe jefe = new Jefe();
+        
         
         
         //this.setContentPane(fondo);
@@ -1752,6 +1684,147 @@ public class maininterfaz extends javax.swing.JFrame {
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
         start=true;
+        Jefe jefe = new Jefe();
+        jefe.start();
+        
+        
+        //Colas
+        ////John
+        Cola p_botones = new Cola();
+        
+        
+        
+        for (int i = 0; i < Integer.parseInt(maininterfaz.info[7]); i++) {
+            Nodo nodo= new Nodo();
+            int produccion_boton=2;
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0);
+            nodo.setInfo(hilo_boton);
+            p_botones.Encolar(nodo);
+            hilo_boton.start();
+        }
+        
+        
+        Cola p_camara = new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[9]); i++) {
+            Nodo nodo= new Nodo();
+            int dia_john=2;
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0);
+            nodo.setInfo(hilo_camara);
+            p_camara.Encolar(nodo);
+            hilo_camara.start();
+        }
+        
+        Cola p_pantalla= new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[6]); i++) {
+            Nodo nodo= new Nodo();
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0);
+            nodo.setInfo(hilo_pantalla);
+            p_pantalla.Encolar(nodo);
+            hilo_pantalla.start();
+        }
+        
+        Cola p_pin= new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[8]); i++) {
+            Nodo nodo= new Nodo();
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0);
+            nodo.setInfo(hilo_pin);
+            p_pin.Encolar(nodo);
+            hilo_pin.start();
+        }
+        
+        Cola cola_ensam= new Cola();
+        int camara=4;
+        int pantalla=2;
+        int boton=3;
+        int pin=1;
+        for (int i = 0; i < Integer.parseInt(info[10]); i++) {
+            Nodo nodo= new Nodo();
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0);
+            nodo.setInfo(hilo_ensam);
+            cola_ensam.Encolar(nodo);
+            hilo_ensam.start();
+        }
+        
+        
+        
+        //Aqui con txt se deberían llenar las colas para luego más abajo con el size de las colas representarlo en los jTextfields
+        
+        ////Ale
+        Cola p_botones_ale = new Cola();
+        
+                for (int i = 0; i < Integer.parseInt(info[12]); i++) {
+            Nodo nodo= new Nodo();
+            int produccion_boton_ale=2;
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_boton_ale, 1);
+            nodo.setInfo(hilo_boton);
+            p_botones_ale.Encolar(nodo);
+            hilo_boton.start();
+        }
+        
+        Cola p_camara_ale = new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[14]); i++) {
+            Nodo nodo= new Nodo();
+            int dia_ale= 3;
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale, 1);
+            nodo.setInfo(hilo_camara);
+            p_camara_ale.Encolar(nodo);
+            hilo_camara.start();
+        }
+        
+        Cola p_pantalla_ale= new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[11]); i++) {
+            Nodo nodo= new Nodo();
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1);
+            nodo.setInfo(hilo_pantalla);
+            p_pantalla_ale.Encolar(nodo);
+            hilo_pantalla.start();
+        }
+        
+        Cola p_pin_ale= new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[13]); i++) {
+            Nodo nodo= new Nodo();
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1);
+            nodo.setInfo(hilo_pin);
+            p_pin_ale.Encolar(nodo);
+            hilo_pin.start();
+        }
+        
+        
+        Cola cola_ensam_ale= new Cola();
+        int camara_ale=4;
+        int pantalla_ale=1;
+        int boton_ale=3;
+        int pin_ale=1;
+        for (int i = 0; i < Integer.parseInt(info[15]); i++) {
+            Nodo nodo= new Nodo();
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1);
+            nodo.setInfo(hilo_ensam);
+            cola_ensam_ale.Encolar(nodo);
+            hilo_ensam.start();
+        }
+        
+        System.out.println(dias_despacho);
+        while (dias_despacho!=0) {  
+            //John
+            jTextField1.setText(Integer.toString(n_pantallas));
+            jTextField2.setText(Integer.toString(n_botones));
+            jTextField4.setText(Integer.toString(n_pin));
+            jTextField3.setText(Integer.toString(n_camara));
+            
+            //Ale
+            jTextField14.setText(Integer.toString(n_pantallas_ale));
+            jTextField15.setText(Integer.toString(n_botones_ale));
+            jTextField17.setText(Integer.toString(n_pin_ale));
+            jTextField16.setText(Integer.toString(n_camara_ale));
+            
+            jTextField10.setText(Integer.toString(dias_despacho));
+        }
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -1825,10 +1898,10 @@ public class maininterfaz extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (!start) {
-            Nodo nodo= new Nodo();
-            Productor_pantalla pro_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla);
-        }
+//        if (!start) {
+//            Nodo nodo= new Nodo();
+//            Productor_pantalla pro_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla);
+//        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
@@ -1963,6 +2036,7 @@ public class maininterfaz extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new maininterfaz().setVisible(true);
+                
             }
         });
     }

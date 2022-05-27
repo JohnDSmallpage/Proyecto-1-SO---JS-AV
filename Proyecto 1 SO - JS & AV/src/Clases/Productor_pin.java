@@ -3,6 +3,7 @@ package Clases;
 
 
 import Clases.Productor_botones;
+import interfaz.maininterfaz;
 
 import static java.lang.Thread.currentThread;
 import java.util.concurrent.Semaphore;
@@ -23,25 +24,32 @@ public class Productor_pin extends Thread {
     Semaphore mutex;
     Semaphore dato;
     Semaphore espacio;
+    int id;
     
-    public Productor_pin(Semaphore mutex, Semaphore dato, Semaphore espacio){
+    public Productor_pin(Semaphore mutex, Semaphore dato, Semaphore espacio, int id){
         this.mutex= mutex;
         this.dato= dato;
         this.espacio= espacio;
+        this.id=id;
         
     }
     
     @Override
     public void run(){
-        while (Main.day!=30) {            
+        while (maininterfaz.dias_despacho!=0) {            
            try {
             espacio.acquire();
             mutex.acquire();
-            Main.n_pin+=1;
+            if (id==0) {
+                   maininterfaz.n_pin+=1;
+               }
+               else{
+                   maininterfaz.n_pin_ale+=1;
+               }
             //System.out.println("El productor " + currentThread() + " produjo  pin");
             mutex.release();
             dato.release();
-            Thread.sleep(3000);
+            Thread.sleep(maininterfaz.dia_duracion*3);
         } catch (InterruptedException ex) {
             Logger.getLogger(Productor_botones.class.getName()).log(Level.SEVERE, null, ex);
         }

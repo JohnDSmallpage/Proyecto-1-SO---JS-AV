@@ -1,7 +1,7 @@
 package Clases;
 
 
-
+import interfaz.maininterfaz;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,25 +20,40 @@ public class Productor_botones extends Thread{
     Semaphore mutex;
     Semaphore dato;
     Semaphore espacio;
+    int produccion;
+    int id;
     
-    public Productor_botones(Semaphore mutex, Semaphore dato, Semaphore espacio){
+    public Productor_botones(Semaphore mutex, Semaphore dato, Semaphore espacio, int produccion, int id){
         this.mutex= mutex;
         this.dato= dato;
         this.espacio= espacio;
+        this.produccion= produccion;
+        this.id=id;
         
     }
     
     @Override
     public void run(){
-        while (Main.day!=30) {            
+        while (maininterfaz.dias_despacho!=0) {            
            try {
             espacio.acquire();
             mutex.acquire();
-            Main.n_botones+=1;
+               if (id==0) {
+                   maininterfaz.n_botones+=1;
+               }
+               else{
+                   maininterfaz.n_botones_ale+=1;
+               }
+            
             //System.out.println("El productor " + currentThread() + " produjo botón");
             mutex.release();
             dato.release();
-            Thread.sleep(500);
+            double dormido= maininterfaz.dia_duracion/produccion;
+            dormido= Math.round(dormido);
+            long l_dormido= (new Double(dormido)).longValue();
+            Thread.sleep(l_dormido);
+            
+            
         } catch (InterruptedException ex) {
             Logger.getLogger(Productor_botones.class.getName()).log(Level.SEVERE, null, ex);
         }

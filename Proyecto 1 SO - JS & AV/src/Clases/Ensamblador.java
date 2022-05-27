@@ -4,6 +4,7 @@ package Clases;
 
 
 
+import interfaz.maininterfaz;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,8 +32,13 @@ public class Ensamblador extends Thread {
         Semaphore existe_espacio_pin;
         Semaphore mutex_pin;
         Semaphore mutex_ensam;
+        int camara;
+        int pantalla;
+        int boton;
+        int pin;
+        int id;
 
-    public Ensamblador(Semaphore existe_dato_camara, Semaphore existe_espacio_camara, Semaphore mutex_camara, Semaphore existe_dato_pantalla, Semaphore existe_espacio_pantalla, Semaphore mutex_pantalla, Semaphore existe_dato_boton, Semaphore existe_espacio_boton, Semaphore mutex_boton, Semaphore existe_dato_pin, Semaphore existe_espacio_pin, Semaphore mutex_pin, Semaphore mutex_ensam) {
+    public Ensamblador(Semaphore existe_dato_camara, Semaphore existe_espacio_camara, Semaphore mutex_camara, Semaphore existe_dato_pantalla, Semaphore existe_espacio_pantalla, Semaphore mutex_pantalla, Semaphore existe_dato_boton, Semaphore existe_espacio_boton, Semaphore mutex_boton, Semaphore existe_dato_pin, Semaphore existe_espacio_pin, Semaphore mutex_pin, Semaphore mutex_ensam, int camara, int pantalla, int boton, int pin, int id) {
         this.existe_dato_camara = existe_dato_camara;
         this.existe_espacio_camara = existe_espacio_camara;
         this.mutex_camara = mutex_camara;
@@ -46,38 +52,78 @@ public class Ensamblador extends Thread {
         this.existe_espacio_pin = existe_espacio_pin;
         this.mutex_pin = mutex_pin;
         this.mutex_ensam= mutex_ensam;
+        this.camara=camara;
+        this.pantalla=pantalla;
+        this.boton=boton;
+        this.pin=pin;
+        this.id=id;
     }
     
 
     @Override
     public void run() {
-        while (Main.day != 30) {
+        while (maininterfaz.dias_despacho!=0) {
                 try {
-                    existe_dato_boton.acquire(3);
-                    existe_dato_camara.acquire(4);
-                    existe_dato_pantalla.acquire(2);
-                    existe_dato_pin.acquire(1);
+                    existe_dato_boton.acquire(boton);
                     mutex_boton.acquire();
-                    mutex_camara.acquire();
-                    mutex_pantalla.acquire();
-                    mutex_pin.acquire();
-                    Main.n_botones-=3;
-                    Main.n_camara-=4;
-                    Main.n_pantallas-=2;
-                    Main.n_pin-=1;
-                    mutex_ensam.acquire();
-                    Main.n_celulares+=1;
-                    mutex_ensam.release();
+                    if (id==0) {
+                   maininterfaz.n_botones-=boton;
+               }
+               else{
+                   maininterfaz.n_botones_ale-=boton;
+               }
                     mutex_boton.release();
+                    existe_espacio_boton.release(boton);
+                    
+                    
+                    existe_dato_camara.acquire(camara);
+                    mutex_camara.acquire();
+                    if (id==0) {
+                   maininterfaz.n_camara-=camara;
+               }
+               else{
+                   maininterfaz.n_camara_ale-=camara;
+               }
                     mutex_camara.release();
+                    existe_espacio_camara.release(camara);
+                    
+                    
+                    existe_dato_pantalla.acquire(pantalla);
+                    mutex_pantalla.acquire();
+                    if (id==0) {
+                   maininterfaz.n_pantallas-=pantalla;
+               }
+               else{
+                   maininterfaz.n_pantallas_ale-=pantalla;
+               }
                     mutex_pantalla.release();
-                    mutex_pin.release();
-                    existe_espacio_boton.release(3);
-                    existe_espacio_camara.release(4);
-                    existe_espacio_pantalla.release(2);
-                    existe_espacio_pin.release(1);
-                    //System.out.println("El ensamblador " + currentThread() + "ensambló 1 Smartphone");
-                    Thread.sleep(2000);
+                    existe_espacio_pantalla.release(pantalla);
+                    
+                    
+                   
+                    existe_dato_pin.acquire(pin);
+                    mutex_pin.acquire();
+                    if (id==0) {
+                   maininterfaz.n_pin-=pin;
+               }
+               else{
+                   maininterfaz.n_pin_ale-=pin;
+               }
+                    mutex_boton.release();
+                    existe_espacio_pin.release(pin);
+                    
+                
+                    mutex_ensam.acquire();
+                    if (id==0) {
+                   maininterfaz.n_celulares+=1;
+               }
+               else{
+                   maininterfaz.n_celulares_ale+=1;
+               }
+                    mutex_ensam.release();
+                    
+                    Thread.sleep(maininterfaz.dia_duracion*2);
+              
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Ensamblador.class.getName()).log(Level.SEVERE, null, ex);
                 }

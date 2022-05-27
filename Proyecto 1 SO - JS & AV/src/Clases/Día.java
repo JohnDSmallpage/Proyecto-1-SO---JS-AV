@@ -1,7 +1,7 @@
 package Clases;
 
 
-import Clases.Main;
+//import Clases.Main;
 import interfaz.maininterfaz;
 import java.util.logging.Level;
 import java.util.logging.Logger;

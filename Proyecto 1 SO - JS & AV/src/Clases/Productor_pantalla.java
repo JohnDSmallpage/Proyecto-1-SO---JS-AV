@@ -3,6 +3,7 @@ package Clases;
 
 
 import Clases.Productor_botones;
+import interfaz.maininterfaz;
 
 import static java.lang.Thread.currentThread;
 import java.util.concurrent.Semaphore;
@@ -23,25 +24,35 @@ public class Productor_pantalla extends Thread {
     Semaphore mutex;
     Semaphore dato;
     Semaphore espacio;
+    int id;
     
-    public Productor_pantalla(Semaphore mutex, Semaphore dato, Semaphore espacio){
+    public Productor_pantalla(Semaphore mutex, Semaphore dato, Semaphore espacio, int id){
         this.mutex= mutex;
         this.dato= dato;
         this.espacio= espacio;
+        this.id=id;
         
     }
     
     @Override
     public void run(){
-        while (Main.day!=30) {            
+        while (maininterfaz.dias_despacho!=0) {            
            try {
             espacio.acquire();
             mutex.acquire();
-            Main.n_pantallas+=1;
+            if (id==0) {
+                   maininterfaz.n_pantallas+=1;
+               }
+               else{
+                   maininterfaz.n_pantallas_ale+=1;
+               }
             //System.out.println("El productor " + currentThread() + " produjo pantalla");
             mutex.release();
             dato.release();
-            Thread.sleep(500);
+            double dormido= maininterfaz.dia_duracion/2;
+            dormido= Math.round(dormido);
+            long l_dormido= (new Double(dormido)).longValue();
+            Thread.sleep(l_dormido);
         } catch (InterruptedException ex) {
             Logger.getLogger(Productor_botones.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -33,4 +33,5 @@ public class Nodo<T> {
     public void setInfo(T info) {
         this.info = info;
     }
+    
 }

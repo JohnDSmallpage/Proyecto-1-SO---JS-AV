@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class Jefe extends Thread {
     @Override
     public void run(){
-        while (maininterfaz.dias_despacho==0) {            
+        while (maininterfaz.dias_despacho!=0) {            
           try {
             maininterfaz.dias_despacho--;
 //              System.out.println("Día: " +  Main.day);
