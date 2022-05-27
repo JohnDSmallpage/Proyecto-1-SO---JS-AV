@@ -27,7 +27,7 @@ public class Jefe extends Thread {
 //                System.out.println("El número de cámaras restantes en almacen fue: " + Main.n_camara);
 //                System.out.println("El número de botones en almacen fue: " + Main.n_botones);
 //                System.out.println("");
-            Thread.sleep(1000);
+            Thread.sleep(maininterfaz.dia_duracion);
         } catch (InterruptedException ex) {
             Logger.getLogger(Día.class.getName()).log(Level.SEVERE, null, ex);
         }  

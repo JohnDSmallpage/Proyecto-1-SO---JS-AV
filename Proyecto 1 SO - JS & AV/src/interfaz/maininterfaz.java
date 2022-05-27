@@ -94,30 +94,32 @@ public class maininterfaz extends javax.swing.JFrame {
         this.setVisible(true);
         this.setSize(800,700);
         this.setLocationRelativeTo(null);
+        Funciones txt= new Funciones();
+        String info []= txt.leerCSV();
 
         //Se lee txt y se crea objeto txt
         //Variables dinámicas
-        this.n_pantallas=n_pantallas;
-        this.n_botones= n_botones;
-        this.n_pin= n_pin;
-        this.n_camara= n_camara;
+        this.n_pantallas=0;
+        this.n_botones= 0;
+        this.n_pin= 0;
+        this.n_camara= 0;
         this.n_celulares= 0;
-        this.n_pantallas_ale=n_pantallas_ale;
-        this.n_botones_ale=n_botones_ale;
-        this.n_pin_ale=n_pin_ale;
-        this.n_camara_ale=n_camara_ale;
+        this.n_pantallas_ale= 0;
+        this.n_botones_ale= 0;
+        this.n_pin_ale= 0;
+        this.n_camara_ale= 0;
         this.n_celulares_ale=0;
-        this.dia_duracion= dia_duracion;
+        this.dia_duracion= Integer.parseInt(info[0]);
         this.start=false;
         
         //Variables estáticos
-        this.max_pantallas= 40;
-        this.max_botones= 45;
-        this.max_pin= 15;
-        this.max_camara= 20;
+        this.max_pantallas= Integer.parseInt(info[2]);
+        this.max_botones= Integer.parseInt(info[3]);
+        this.max_pin= Integer.parseInt(info[4]);
+        this.max_camara= Integer.parseInt(info[5]);
         this.ci_john= 4;
         this.ci_ale= 5;
-        this.dias_despacho= dias_despacho; //se saca del txt
+        this.dias_despacho= Integer.parseInt(info[1]); 
         
         //Semáforos
         //John
@@ -171,18 +173,101 @@ public class maininterfaz extends javax.swing.JFrame {
         //Colas
         ////John
         Cola p_botones = new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[7]); i++) {
+            Nodo nodo= new Nodo();
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton);
+            nodo.setInfo(hilo_boton);
+            p_botones.Encolar(nodo);
+        }
+        
         Cola p_camara = new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[9]); i++) {
+            Nodo nodo= new Nodo();
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara);
+            nodo.setInfo(hilo_camara);
+            p_camara.Encolar(nodo);
+        }
+        
         Cola p_pantalla= new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[6]); i++) {
+            Nodo nodo= new Nodo();
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla);
+            nodo.setInfo(hilo_pantalla);
+            p_pantalla.Encolar(nodo);
+        }
+        
         Cola p_pin= new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[8]); i++) {
+            Nodo nodo= new Nodo();
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin);
+            nodo.setInfo(hilo_pin);
+            p_pin.Encolar(nodo);
+        }
+        
         Cola cola_ensam= new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[10]); i++) {
+            Nodo nodo= new Nodo();
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam);
+            nodo.setInfo(hilo_ensam);
+            cola_ensam.Encolar(nodo);
+        }
+        
+        
+        
         //Aqui con txt se deberían llenar las colas para luego más abajo con el size de las colas representarlo en los jTextfields
         
         ////Ale
         Cola p_botones_ale = new Cola();
+        
+                for (int i = 0; i < Integer.parseInt(info[12]); i++) {
+            Nodo nodo= new Nodo();
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale);
+            nodo.setInfo(hilo_boton);
+            p_botones_ale.Encolar(nodo);
+        }
+        
         Cola p_camara_ale = new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[14]); i++) {
+            Nodo nodo= new Nodo();
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale);
+            nodo.setInfo(hilo_camara);
+            p_camara_ale.Encolar(nodo);
+        }
+        
         Cola p_pantalla_ale= new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[11]); i++) {
+            Nodo nodo= new Nodo();
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale);
+            nodo.setInfo(hilo_pantalla);
+            p_pantalla_ale.Encolar(nodo);
+        }
+        
         Cola p_pin_ale= new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[13]); i++) {
+            Nodo nodo= new Nodo();
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale);
+            nodo.setInfo(hilo_pin);
+            p_pin_ale.Encolar(nodo);
+        }
+        
+        
         Cola cola_ensam_ale= new Cola();
+        
+        for (int i = 0; i < Integer.parseInt(info[15]); i++) {
+            Nodo nodo= new Nodo();
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale);
+            nodo.setInfo(hilo_ensam);
+            cola_ensam_ale.Encolar(nodo);
+        }
+        
         
         
         //Asignación de valores en la interfaz
@@ -1849,38 +1934,38 @@ public class maininterfaz extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(maininterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(maininterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(maininterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(maininterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new maininterfaz().setVisible(true);
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(maininterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(maininterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(maininterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(maininterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new maininterfaz().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

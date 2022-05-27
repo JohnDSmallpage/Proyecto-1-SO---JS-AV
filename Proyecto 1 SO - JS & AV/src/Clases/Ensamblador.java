@@ -30,8 +30,9 @@ public class Ensamblador extends Thread {
         Semaphore existe_dato_pin;
         Semaphore existe_espacio_pin;
         Semaphore mutex_pin;
+        Semaphore mutex_ensam;
 
-    public Ensamblador(Semaphore existe_dato_camara, Semaphore existe_espacio_camara, Semaphore mutex_camara, Semaphore existe_dato_pantalla, Semaphore existe_espacio_pantalla, Semaphore mutex_pantalla, Semaphore existe_dato_boton, Semaphore existe_espacio_boton, Semaphore mutex_boton, Semaphore existe_dato_pin, Semaphore existe_espacio_pin, Semaphore mutex_pin) {
+    public Ensamblador(Semaphore existe_dato_camara, Semaphore existe_espacio_camara, Semaphore mutex_camara, Semaphore existe_dato_pantalla, Semaphore existe_espacio_pantalla, Semaphore mutex_pantalla, Semaphore existe_dato_boton, Semaphore existe_espacio_boton, Semaphore mutex_boton, Semaphore existe_dato_pin, Semaphore existe_espacio_pin, Semaphore mutex_pin, Semaphore mutex_ensam) {
         this.existe_dato_camara = existe_dato_camara;
         this.existe_espacio_camara = existe_espacio_camara;
         this.mutex_camara = mutex_camara;
@@ -44,6 +45,7 @@ public class Ensamblador extends Thread {
         this.existe_dato_pin = existe_dato_pin;
         this.existe_espacio_pin = existe_espacio_pin;
         this.mutex_pin = mutex_pin;
+        this.mutex_ensam= mutex_ensam;
     }
     
 
@@ -63,7 +65,9 @@ public class Ensamblador extends Thread {
                     Main.n_camara-=4;
                     Main.n_pantallas-=2;
                     Main.n_pin-=1;
+                    mutex_ensam.acquire();
                     Main.n_celulares+=1;
+                    mutex_ensam.release();
                     mutex_boton.release();
                     mutex_camara.release();
                     mutex_pantalla.release();

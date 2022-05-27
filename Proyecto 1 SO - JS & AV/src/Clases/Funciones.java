@@ -35,7 +35,7 @@ public class Funciones {
     
     public String[] separarData(String[] text) {
         if (text.length != 1) {
-            String[] data = new String[text.length - 5];
+            String[] data = new String[text.length - 4];
             int j = 0;
             for (int i = 0; i < text.length; i++) {
                 String[] line = text[i].split(",");

@@ -73,9 +73,9 @@ public class Main {
         Productor_pin pin_2= new Productor_pin(mutex_pin, existe_dato_pin, existe_espacio_pin);
         Productor_pin pin_3= new Productor_pin(mutex_pin, existe_dato_pin, existe_espacio_pin);
         
-        Ensamblador ensam_1= new Ensamblador(existe_dato_camara, existe_espacio_camara, mutex_camara, existe_dato_pantalla, existe_espacio_pantalla, mutex_pantalla, existe_dato_boton, existe_espacio_boton, mutex_boton, existe_dato_pin, existe_espacio_pin, mutex_pin);
-        Ensamblador ensam_2= new Ensamblador(existe_dato_camara, existe_espacio_camara, mutex_camara, existe_dato_pantalla, existe_espacio_pantalla, mutex_pantalla, existe_dato_boton, existe_espacio_boton, mutex_boton, existe_dato_pin, existe_espacio_pin, mutex_pin);
-        
+//        Ensamblador ensam_1= new Ensamblador(existe_dato_camara, existe_espacio_camara, mutex_camara, existe_dato_pantalla, existe_espacio_pantalla, mutex_pantalla, existe_dato_boton, existe_espacio_boton, mutex_boton, existe_dato_pin, existe_espacio_pin, mutex_pin);
+//        Ensamblador ensam_2= new Ensamblador(existe_dato_camara, existe_espacio_camara, mutex_camara, existe_dato_pantalla, existe_espacio_pantalla, mutex_pantalla, existe_dato_boton, existe_espacio_boton, mutex_boton, existe_dato_pin, existe_espacio_pin, mutex_pin);
+//        
         
         
         
@@ -99,7 +99,7 @@ public class Main {
 //        pin_2.start();
 //        pin_3.start();
         
-        ensam_1.start();
+//        ensam_1.start();
 //        ensam_2.start();
         
         while(true){
