@@ -5,7 +5,11 @@
  */
 package interfaz;
 
-import Classes.Funciones;
+
+import Clases.Funciones;
+
+import java.util.concurrent.Semaphore;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.FileReader;
@@ -13,6 +17,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import Clases.*;
 
 /**
  *
@@ -29,12 +34,198 @@ public class maininterfaz extends javax.swing.JFrame {
     //private ImageIcon imagen;
    // private Icon icono;
     
+    public static volatile int n_pantallas;
+    public static volatile int n_botones;
+    public static volatile int n_pin;
+    public static volatile int n_camara;
+    public static volatile int n_celulares;
+    public static volatile int dias_despacho;
+    public static volatile int n_pantallas_ale;
+    public static volatile int n_botones_ale;
+    public static volatile int n_pin_ale;
+    public static volatile int n_camara_ale;
+    public static volatile int n_celulares_ale;
+    public static int dia_duracion;
+    public static int max_pantallas;
+    public static int max_botones;
+    public static int max_pin;
+    public static int max_camara;
+    public static int ci_john;
+    public static int ci_ale;
+    public static int dia;
+    public static boolean start;
+    private static Semaphore dato_boton;
+    private static Semaphore espacio_boton;
+    private static Semaphore mutex_boton;
+    private static Semaphore dato_camara;
+    private static Semaphore espacio_camara;
+    private static Semaphore mutex_camara;
+    private static Semaphore dato_pantalla;
+    private static Semaphore espacio_pantalla;
+    private static Semaphore mutex_pantalla;
+    private static Semaphore dato_pin;
+    private static Semaphore espacio_pin;
+    private static Semaphore mutex_pin;
+    private static Semaphore dato_boton_ale;
+    private static Semaphore espacio_boton_ale;
+    private static Semaphore mutex_boton_ale;
+    private static Semaphore dato_camara_ale;
+    private static Semaphore espacio_camara_ale;
+    private static Semaphore mutex_camara_ale;
+    private static Semaphore dato_pantalla_ale;
+    private static Semaphore espacio_pantalla_ale;
+    private static Semaphore mutex_pantalla_ale;
+    private static Semaphore dato_pin_ale;
+    private static Semaphore espacio_pin_ale;
+    private static Semaphore mutex_pin_ale;
+    private static Semaphore mutex_ensam;
+    private static Semaphore mutex_ensam_ale;
+    
+    
+    
+    
+
+    
+    
+    
     public maininterfaz() {
         initComponents();
         this.setResizable(false);
         this.setVisible(true);
         this.setSize(800,700);
         this.setLocationRelativeTo(null);
+
+        //Se lee txt y se crea objeto txt
+        //Variables dinámicas
+        this.n_pantallas=n_pantallas;
+        this.n_botones= n_botones;
+        this.n_pin= n_pin;
+        this.n_camara= n_camara;
+        this.n_celulares= 0;
+        this.n_pantallas_ale=n_pantallas_ale;
+        this.n_botones_ale=n_botones_ale;
+        this.n_pin_ale=n_pin_ale;
+        this.n_camara_ale=n_camara_ale;
+        this.n_celulares_ale=0;
+        this.dia_duracion= dia_duracion;
+        this.start=false;
+        
+        //Variables estáticos
+        this.max_pantallas= 40;
+        this.max_botones= 45;
+        this.max_pin= 15;
+        this.max_camara= 20;
+        this.ci_john= 4;
+        this.ci_ale= 5;
+        this.dias_despacho= dias_despacho; //se saca del txt
+        
+        //Semáforos
+        //John
+        ////botón
+        Semaphore dato_boton= new Semaphore(0,true);
+        Semaphore espacio_boton= new Semaphore(max_botones, true);
+        Semaphore mutex_boton= new Semaphore(1, true);
+        
+        ////camara
+        Semaphore dato_camara= new Semaphore(0, true);
+        Semaphore espacio_camara= new Semaphore(max_camara, true);
+        Semaphore mutex_camara= new Semaphore(1, true);
+        
+        ////pantalla
+        Semaphore dato_pantalla= new Semaphore(0, true);
+        Semaphore espacio_pantalla= new Semaphore(max_pantallas, true);
+        Semaphore mutex_pantalla= new Semaphore(1, true);
+        
+        ////pin
+        Semaphore dato_pin= new Semaphore(0, true);
+        Semaphore espacio_pin= new Semaphore(max_pin, true);
+        Semaphore mutex_pin= new Semaphore(1, true);
+        
+        ////ensam
+        Semaphore mutex_ensam= new Semaphore(1,true);
+        
+        ////ensam ale
+        Semaphore mutex_ensam_ale= new Semaphore(1,true);
+        
+        //Ale
+        
+        Semaphore dato_boton_ale= new Semaphore(0, true);
+        Semaphore espacio_boton_ale= new Semaphore(max_botones, true);
+        Semaphore mutex_boton_ale= new Semaphore(1, true);
+        
+        ////camara
+        Semaphore dato_camara_ale= new Semaphore(0, true);
+        Semaphore espacio_camara_ale= new Semaphore(max_camara, true);
+        Semaphore mutex_camara_ale= new Semaphore(1, true);
+        
+        ////pantalla
+        Semaphore dato_pantalla_ale= new Semaphore(0, true);
+        Semaphore espacio_pantalla_ale= new Semaphore(max_pantallas, true);
+        Semaphore mutex_pantalla_ale= new Semaphore(1, true);
+        
+        ////pin
+        Semaphore dato_pin_ale= new Semaphore(0, true);
+        Semaphore espacio_pin_ale= new Semaphore(max_pin, true);
+        Semaphore mutex_pin_ale= new Semaphore(1, true);
+       
+        //Colas
+        ////John
+        Cola p_botones = new Cola();
+        Cola p_camara = new Cola();
+        Cola p_pantalla= new Cola();
+        Cola p_pin= new Cola();
+        Cola cola_ensam= new Cola();
+        //Aqui con txt se deberían llenar las colas para luego más abajo con el size de las colas representarlo en los jTextfields
+        
+        ////Ale
+        Cola p_botones_ale = new Cola();
+        Cola p_camara_ale = new Cola();
+        Cola p_pantalla_ale= new Cola();
+        Cola p_pin_ale= new Cola();
+        Cola cola_ensam_ale= new Cola();
+        
+        
+        //Asignación de valores en la interfaz
+        ////Productos John
+        jTextField1.setText(Integer.toString(n_pantallas));
+        jTextField2.setText(Integer.toString(n_botones));
+        jTextField4.setText(Integer.toString(n_pin));
+        jTextField3.setText(Integer.toString(n_camara));
+        
+        ////Productos Ale
+        jTextField14.setText(Integer.toString(n_pantallas_ale));
+        jTextField15.setText(Integer.toString(n_botones_ale));
+        jTextField17.setText(Integer.toString(n_pin_ale));
+        jTextField16.setText(Integer.toString(n_camara_ale));
+        
+        ////Productor y ensamblador John
+        jTextField5.setText(Integer.toString(p_pantalla.getSize()));
+        jTextField6.setText(Integer.toString(p_botones.getSize()));
+        jTextField7.setText(Integer.toString(p_pin.getSize()));
+        jTextField8.setText(Integer.toString(p_camara.getSize()));
+        jTextField9.setText(Integer.toString(cola_ensam.getSize()));
+        
+        ////Productor y ensamblador Ale
+        jTextField18.setText(Integer.toString(p_pantalla_ale.getSize()));
+        jTextField19.setText(Integer.toString(p_botones_ale.getSize()));
+        jTextField20.setText(Integer.toString(p_pin_ale.getSize()));
+        jTextField21.setText(Integer.toString(p_camara_ale.getSize()));
+        jTextField22.setText(Integer.toString(cola_ensam_ale.getSize()));
+        
+        //Nro de teléfonos ensamblados 
+        jTextField11.setText(Integer.toString(n_celulares));
+        jTextField25.setText(Integer.toString(n_celulares_ale));
+        
+        //Día
+        jTextField10.setText(Integer.toString(dias_despacho));
+        
+        //Inicialización del contador Jefe
+        Jefe jefe = new Jefe();
+        
+        
+        //this.setContentPane(fondo);
+        //this.pintarImagen(this.jblImagen1,"/iterfazimg/logo.png");
+
         
        
     }
@@ -1475,6 +1666,7 @@ public class maininterfaz extends javax.swing.JFrame {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
+        start=true;
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -1487,6 +1679,7 @@ public class maininterfaz extends javax.swing.JFrame {
 
     private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextField10ActionPerformed
 
     private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
@@ -1547,6 +1740,10 @@ public class maininterfaz extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if (!start) {
+            Nodo nodo= new Nodo();
+            Productor_pantalla pro_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
