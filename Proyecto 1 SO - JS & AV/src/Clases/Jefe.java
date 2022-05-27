@@ -17,16 +17,21 @@ import java.util.logging.Logger;
 public class Jefe extends Thread {
     @Override
     public void run(){
+        int i=30;
         while (maininterfaz.dias_despacho!=0) {            
           try {
+              
             maininterfaz.dias_despacho--;
-//              System.out.println("Día: " +  Main.day);
-//              System.out.println("El número de teléfonos producido fue: " + Main.n_celulares);
-//                System.out.println("El número de pantallas restantes en almacen fue: " + Main.n_pantallas);
-//                System.out.println("El número de pines restantes en almacen fue: " + Main.n_pin);
-//                System.out.println("El número de cámaras restantes en almacen fue: " + Main.n_camara);
-//                System.out.println("El número de botones en almacen fue: " + Main.n_botones);
-//                System.out.println("");
+            maininterfaz.jTextField10.setText(Integer.toString(maininterfaz.dias_despacho));
+              System.out.println("Dia " + i);
+              i--;
+            System.out.println("hay: " + maininterfaz.n_botones_ale + " botones");
+                    System.out.println("hay: " + maininterfaz.n_pantallas_ale + " pantallas");
+                    System.out.println("hay: " + maininterfaz.n_camara_ale + " camaras");
+                    System.out.println("hay: " + maininterfaz.n_pin_ale + " pines");
+                    System.out.println("hay: " + maininterfaz.n_celulares_ale + " celulares");
+                    System.out.println("");
+//              
             Thread.sleep(maininterfaz.dia_duracion);
         } catch (InterruptedException ex) {
             Logger.getLogger(Día.class.getName()).log(Level.SEVERE, null, ex);

@@ -381,7 +381,6 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("PRODUCTOS:");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -395,7 +394,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel6.setText("PANTALLAS:");
 
         jTextField1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1.setText("jTextField1");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -411,8 +409,8 @@ public class maininterfaz extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1)
-                .addContainerGap())
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,7 +432,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel10.setText("BOTONES:");
 
         jTextField2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(0, 0, 0));
         jTextField2.setText("jTextField1");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -473,7 +470,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel11.setText("CÁMARAS:");
 
         jTextField3.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(0, 0, 0));
         jTextField3.setText("jTextField1");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -512,7 +508,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel12.setText("PINES DE CARGA:");
 
         jTextField4.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(0, 0, 0));
         jTextField4.setText("jTextField1");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -545,7 +540,6 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("PRODUCTORES:");
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -559,7 +553,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel7.setText("PANTALLAS:");
 
         jTextField5.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField5.setForeground(new java.awt.Color(0, 0, 0));
         jTextField5.setText("jTextField1");
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -619,7 +612,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel8.setText("PANTALLAS:");
 
         jTextField6.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField6.setForeground(new java.awt.Color(0, 0, 0));
         jTextField6.setText("jTextField1");
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -677,7 +669,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel9.setText("PANTALLAS:");
 
         jTextField7.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField7.setForeground(new java.awt.Color(0, 0, 0));
         jTextField7.setText("jTextField1");
         jTextField7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -714,7 +705,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel13.setText("PANTALLAS:");
 
         jTextField8.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField8.setForeground(new java.awt.Color(0, 0, 0));
         jTextField8.setText("jTextField1");
         jTextField8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -772,7 +762,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel14.setText("PANTALLAS:");
 
         jTextField9.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField9.setForeground(new java.awt.Color(0, 0, 0));
         jTextField9.setText("jTextField1");
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -855,14 +844,12 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel16.setBackground(new java.awt.Color(0, 0, 0));
         jLabel16.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("TELÉFONOS:");
         jLabel16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel16.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
         jTextField11.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField11.setForeground(new java.awt.Color(0, 0, 0));
         jTextField11.setText("jTextField1");
         jTextField11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -951,7 +938,7 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1006,7 +993,7 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("DÍA");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 100, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 30, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("PRODUCCIÓN TELÉFONOS ");
@@ -1036,14 +1023,15 @@ public class maininterfaz extends javax.swing.JFrame {
         });
         getContentPane().add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, 70));
 
+        jTextField10.setEditable(false);
         jTextField10.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextField10.setText("jTextField10");
+        jTextField10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField10ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 60, 40));
+        getContentPane().add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, 100, 40));
 
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel15.setText("PRODUCCIÓN TELÉFONOS ");
@@ -1053,7 +1041,6 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel20.setBackground(new java.awt.Color(0, 0, 0));
         jLabel20.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("PRODUCTOS:");
         jLabel20.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1067,7 +1054,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel21.setText("PANTALLAS:");
 
         jTextField14.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField14.setForeground(new java.awt.Color(0, 0, 0));
         jTextField14.setText("jTextField1");
         jTextField14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1083,8 +1069,7 @@ public class maininterfaz extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField14)
-                .addContainerGap())
+                .addComponent(jTextField14, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1106,7 +1091,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel22.setText("BOTONES:");
 
         jTextField15.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField15.setForeground(new java.awt.Color(0, 0, 0));
         jTextField15.setText("jTextField1");
         jTextField15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1145,7 +1129,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel23.setText("CÁMARAS:");
 
         jTextField16.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField16.setForeground(new java.awt.Color(0, 0, 0));
         jTextField16.setText("jTextField1");
         jTextField16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1184,7 +1167,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel24.setText("PINES DE CARGA:");
 
         jTextField17.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField17.setForeground(new java.awt.Color(0, 0, 0));
         jTextField17.setText("jTextField1");
         jTextField17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1200,8 +1182,7 @@ public class maininterfaz extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField17)
-                .addContainerGap())
+                .addComponent(jTextField17))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1217,7 +1198,6 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel25.setBackground(new java.awt.Color(0, 0, 0));
         jLabel25.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(0, 0, 0));
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel25.setText("PRODUCTORES:");
         jLabel25.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1231,7 +1211,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel26.setText("PANTALLAS:");
 
         jTextField18.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField18.setForeground(new java.awt.Color(0, 0, 0));
         jTextField18.setText("jTextField1");
         jTextField18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1289,7 +1268,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel27.setText("PANTALLAS:");
 
         jTextField19.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField19.setForeground(new java.awt.Color(0, 0, 0));
         jTextField19.setText("jTextField1");
         jTextField19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1347,7 +1325,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel28.setText("PANTALLAS:");
 
         jTextField20.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField20.setForeground(new java.awt.Color(0, 0, 0));
         jTextField20.setText("jTextField1");
         jTextField20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1384,7 +1361,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel29.setText("PANTALLAS:");
 
         jTextField21.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField21.setForeground(new java.awt.Color(0, 0, 0));
         jTextField21.setText("jTextField1");
         jTextField21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1442,7 +1418,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel30.setText("PANTALLAS:");
 
         jTextField22.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField22.setForeground(new java.awt.Color(0, 0, 0));
         jTextField22.setText("jTextField1");
         jTextField22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1525,14 +1500,12 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel33.setBackground(new java.awt.Color(0, 0, 0));
         jLabel33.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(0, 0, 0));
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel33.setText("TELÉFONOS:");
         jLabel33.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel33.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
         jTextField25.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextField25.setForeground(new java.awt.Color(0, 0, 0));
         jTextField25.setText("jTextField1");
         jTextField25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1687,7 +1660,6 @@ public class maininterfaz extends javax.swing.JFrame {
         Jefe jefe = new Jefe();
         jefe.start();
         
-        
         //Colas
         ////John
         Cola p_botones = new Cola();
@@ -1752,7 +1724,7 @@ public class maininterfaz extends javax.swing.JFrame {
         
         //Aqui con txt se deberían llenar las colas para luego más abajo con el size de las colas representarlo en los jTextfields
         
-        ////Ale
+        //Ale
         Cola p_botones_ale = new Cola();
         
                 for (int i = 0; i < Integer.parseInt(info[12]); i++) {
@@ -1807,23 +1779,6 @@ public class maininterfaz extends javax.swing.JFrame {
             nodo.setInfo(hilo_ensam);
             cola_ensam_ale.Encolar(nodo);
             hilo_ensam.start();
-        }
-        
-        System.out.println(dias_despacho);
-        while (dias_despacho!=0) {  
-            //John
-            jTextField1.setText(Integer.toString(n_pantallas));
-            jTextField2.setText(Integer.toString(n_botones));
-            jTextField4.setText(Integer.toString(n_pin));
-            jTextField3.setText(Integer.toString(n_camara));
-            
-            //Ale
-            jTextField14.setText(Integer.toString(n_pantallas_ale));
-            jTextField15.setText(Integer.toString(n_botones_ale));
-            jTextField17.setText(Integer.toString(n_pin_ale));
-            jTextField16.setText(Integer.toString(n_camara_ale));
-            
-            jTextField10.setText(Integer.toString(dias_despacho));
         }
     }//GEN-LAST:event_jButton12ActionPerformed
 
@@ -2122,31 +2077,31 @@ public class maininterfaz extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField20;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
-    private javax.swing.JTextField jTextField24;
-    private javax.swing.JTextField jTextField25;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    public static javax.swing.JTextField jTextField1;
+    public static javax.swing.JTextField jTextField10;
+    public static javax.swing.JTextField jTextField11;
+    public static javax.swing.JTextField jTextField12;
+    public static javax.swing.JTextField jTextField13;
+    public static javax.swing.JTextField jTextField14;
+    public static javax.swing.JTextField jTextField15;
+    public static javax.swing.JTextField jTextField16;
+    public static javax.swing.JTextField jTextField17;
+    public static javax.swing.JTextField jTextField18;
+    public static javax.swing.JTextField jTextField19;
+    public static javax.swing.JTextField jTextField2;
+    public static javax.swing.JTextField jTextField20;
+    public static javax.swing.JTextField jTextField21;
+    public static javax.swing.JTextField jTextField22;
+    public static javax.swing.JTextField jTextField23;
+    public static javax.swing.JTextField jTextField24;
+    public static javax.swing.JTextField jTextField25;
+    public static javax.swing.JTextField jTextField3;
+    public static javax.swing.JTextField jTextField4;
+    public static javax.swing.JTextField jTextField5;
+    public static javax.swing.JTextField jTextField6;
+    public static javax.swing.JTextField jTextField7;
+    public static javax.swing.JTextField jTextField8;
+    public static javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
     
 //    class FondoPanel extends JPanel{
