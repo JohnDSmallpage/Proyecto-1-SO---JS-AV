@@ -1,11 +1,12 @@
 package Clases;
 
 
-
+import interfaz.maininterfaz;
 import com.csvreader.CsvWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.util.concurrent.Semaphore;
 import javax.swing.JOptionPane;
 
 public class Funciones {
@@ -106,4 +107,5 @@ public class Funciones {
             JOptionPane.showConfirmDialog(null, "ERROR AL LEER");
         }
     }
+    
 }

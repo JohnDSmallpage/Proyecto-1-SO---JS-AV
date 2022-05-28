@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Clases.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -82,12 +83,16 @@ public class maininterfaz extends javax.swing.JFrame {
     private static Semaphore mutex_ensam_ale;
     public static Funciones txt;
     public static String info [];
-    
-    
-    
-    
-
-    
+    public static Productor_botones p_botones [];
+    public static Productor_camara p_camara [];
+    public static Productor_pantalla p_pantalla [];
+    public static Productor_pin p_pin [];
+    public static Ensamblador array_ensam [];
+    public static Productor_botones p_botones_ale [];
+    public static Productor_camara p_camara_ale [];
+    public static Productor_pantalla p_pantalla_ale [];
+    public static Productor_pin p_pin_ale [];
+    public static Ensamblador array_ensam_ale [];
     
     
     public maininterfaz() {
@@ -198,6 +203,18 @@ public class maininterfaz extends javax.swing.JFrame {
         this.dato_pin_ale= new Semaphore(0, true);
         this.espacio_pin_ale= new Semaphore(max_pin, true);
         this.mutex_pin_ale= new Semaphore(1, true);
+        
+       
+        this.p_botones= new Productor_botones[ci_ale+10];
+        this.p_camara= new Productor_camara[ci_ale+10];
+        this.p_pantalla= new Productor_pantalla[ci_ale+10];
+        this.p_pin= new Productor_pin[ci_ale+10];
+        this.p_botones_ale= new Productor_botones[ci_ale+10];
+        this.p_camara_ale= new Productor_camara[ci_ale+10];
+        this.p_pantalla_ale= new Productor_pantalla[ci_ale+10];
+        this.p_pin_ale= new Productor_pin[ci_ale+10];
+        this.array_ensam= new Ensamblador[ci_ale+10];
+        this.array_ensam_ale= new Ensamblador[ci_ale+10];
        
         
         
@@ -242,6 +259,91 @@ public class maininterfaz extends javax.swing.JFrame {
         
         //this.setContentPane(fondo);
         //this.pintarImagen(this.jblImagen1,"/iterfazimg/logo.png");
+        
+        for (int i = 0; i < Integer.parseInt(maininterfaz.info[7]); i++) {
+            int produccion_boton=2;
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0);
+            p_botones[i]=hilo_boton;
+            
+        }
+        
+        
+        for (int i = 0; i < Integer.parseInt(info[9]); i++) {
+            int dia_john=2;
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0);
+            p_camara[i]=hilo_camara;
+            
+        }
+        
+        
+        for (int i = 0; i < Integer.parseInt(info[6]); i++) {
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0);
+            p_pantalla[i]=hilo_pantalla;
+            
+        }
+        
+        
+        for (int i = 0; i < Integer.parseInt(info[8]); i++) {
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0);
+            p_pin[i]=hilo_pin;
+            
+        }
+        
+        int camara=4;
+        int pantalla=2;
+        int boton=3;
+        int pin=1;
+        for (int i = 0; i < Integer.parseInt(info[10]); i++) {
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0);
+            array_ensam[i]=hilo_ensam;
+            
+        }
+        
+        
+        
+        //Aqui con txt se deberían llenar las colas para luego más abajo con el size de las colas representarlo en los jTextfields
+        
+        //Ale
+        
+                for (int i = 0; i < Integer.parseInt(info[12]); i++) {
+            int produccion_boton_ale=2;
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_boton_ale, 1);
+            p_botones_ale[i]=hilo_boton;
+            
+        }
+        
+        
+        for (int i = 0; i < Integer.parseInt(info[14]); i++) {
+            int dia_ale= 3;
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale, 1);
+            p_camara_ale[i]=hilo_camara;
+            
+        }
+        
+        
+        for (int i = 0; i < Integer.parseInt(info[11]); i++) {
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1);
+            p_pantalla_ale[i]=hilo_pantalla;
+            
+        }
+        
+        
+        for (int i = 0; i < Integer.parseInt(info[13]); i++) {
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1);
+            p_pin_ale[i]=hilo_pin;
+           
+        }
+        
+       
+        int camara_ale=4;
+        int pantalla_ale=1;
+        int boton_ale=3;
+        int pin_ale=1;
+        for (int i = 0; i < Integer.parseInt(info[15]); i++) {
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1);
+            array_ensam_ale[i]=hilo_ensam;
+            
+        }
 
         
        
@@ -275,7 +377,6 @@ public class maininterfaz extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -305,6 +406,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
+        jButton24 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
@@ -567,8 +669,8 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -580,15 +682,6 @@ public class maininterfaz extends javax.swing.JFrame {
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-
-        jButton1.setText("+");
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.setText("-");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -609,7 +702,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel8.setBackground(new java.awt.Color(0, 0, 0));
         jLabel8.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("PANTALLAS:");
+        jLabel8.setText("BOTONES");
 
         jTextField6.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         jTextField6.setText("jTextField1");
@@ -626,8 +719,8 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -666,7 +759,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
         jLabel9.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("PANTALLAS:");
+        jLabel9.setText("CÁMARAS");
 
         jTextField7.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         jTextField7.setText("jTextField1");
@@ -683,8 +776,8 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -702,7 +795,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel13.setBackground(new java.awt.Color(0, 0, 0));
         jLabel13.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("PANTALLAS:");
+        jLabel13.setText("PINES");
 
         jTextField8.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         jTextField8.setText("jTextField1");
@@ -719,9 +812,9 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -759,7 +852,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jLabel14.setBackground(new java.awt.Color(0, 0, 0));
         jLabel14.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("PANTALLAS:");
+        jLabel14.setText("ENSAM");
 
         jTextField9.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         jTextField9.setText("jTextField1");
@@ -776,8 +869,8 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField9)
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
@@ -878,6 +971,13 @@ public class maininterfaz extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton24.setText("+");
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton24ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -892,37 +992,44 @@ public class maininterfaz extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(33, 33, 33)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jButton2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jButton3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton4))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jButton6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton5))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jButton7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton8))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jButton9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton10))
-                                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                                        .addComponent(jButton6)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                                        .addComponent(jButton3)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                                        .addComponent(jButton2)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jButton24)
+                                                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))
+                                                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                                        .addComponent(jButton7)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                                        .addComponent(jButton9)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jButton10)
+                                                    .addComponent(jButton8))))
+                                        .addGap(34, 34, 34)))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
@@ -961,7 +1068,7 @@ public class maininterfaz extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -986,7 +1093,7 @@ public class maininterfaz extends javax.swing.JFrame {
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 350, 530));
@@ -1225,8 +1332,8 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel26)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField18, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel20Layout.setVerticalGroup(
@@ -1282,8 +1389,8 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel27)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField19, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel21Layout.setVerticalGroup(
@@ -1339,8 +1446,8 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel28)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel22Layout.setVerticalGroup(
@@ -1375,8 +1482,8 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField21, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel23Layout.setVerticalGroup(
@@ -1432,8 +1539,8 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel30)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField22, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel24Layout.setVerticalGroup(
@@ -1660,126 +1767,74 @@ public class maininterfaz extends javax.swing.JFrame {
         Jefe jefe = new Jefe();
         jefe.start();
         
-        //Colas
+        //Arrays
         ////John
-        Cola p_botones = new Cola();
+        for (int i = 0; i < p_botones.length; i++) {
+            if (p_botones[i]!=null) {
+                p_botones[i].start();
+            }
+        }
         
+      for (int i = 0; i < p_camara.length; i++) {
+            if (p_camara[i]!=null) {
+                p_camara[i].start();
+            }
+        }
+      
+        for (int i = 0; i < p_pantalla.length; i++) {
+            if (p_pantalla[i]!=null) {
+                p_pantalla[i].start();
+            }
+        }
+//        
+       for (int i = 0; i < p_pin.length; i++) {
+            if (p_pin[i]!=null) {
+                p_pin[i].start();
+            }
+        }
         
-        
-        for (int i = 0; i < Integer.parseInt(maininterfaz.info[7]); i++) {
-            Nodo nodo= new Nodo();
-            int produccion_boton=2;
-            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0);
-            nodo.setInfo(hilo_boton);
-            p_botones.Encolar(nodo);
-            hilo_boton.start();
+        for (int i = 0; i < array_ensam.length; i++) {
+            if (array_ensam[i]!=null) {
+                array_ensam[i].start();
+            }
         }
         
         
-        Cola p_camara = new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[9]); i++) {
-            Nodo nodo= new Nodo();
-            int dia_john=2;
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0);
-            nodo.setInfo(hilo_camara);
-            p_camara.Encolar(nodo);
-            hilo_camara.start();
+//        //Aqui con txt se deberían llenar las colas para luego más abajo con el size de las colas representarlo en los jTextfields
+//        
+//        //Ale
+       for (int i = 0; i < p_botones_ale.length; i++) {
+            if (p_botones_ale[i]!=null) {
+                p_botones_ale[i].start();
+            }
         }
         
-        Cola p_pantalla= new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[6]); i++) {
-            Nodo nodo= new Nodo();
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0);
-            nodo.setInfo(hilo_pantalla);
-            p_pantalla.Encolar(nodo);
-            hilo_pantalla.start();
+      for (int i = 0; i < p_camara_ale.length; i++) {
+            if (p_camara_ale[i]!=null) {
+                p_camara_ale[i].start();
+            }
+        }
+//        
+        for (int i = 0; i < p_pantalla_ale.length; i++) {
+            if (p_pantalla_ale[i]!=null) {
+                p_pantalla_ale[i].start();
+            }
+        }
+//        
+       for (int i = 0; i < p_pin_ale.length; i++) {
+            if (p_pin_ale[i]!=null) {
+                p_pin_ale[i].start();
+            }
         }
         
-        Cola p_pin= new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[8]); i++) {
-            Nodo nodo= new Nodo();
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0);
-            nodo.setInfo(hilo_pin);
-            p_pin.Encolar(nodo);
-            hilo_pin.start();
-        }
-        
-        Cola cola_ensam= new Cola();
-        int camara=4;
-        int pantalla=2;
-        int boton=3;
-        int pin=1;
-        for (int i = 0; i < Integer.parseInt(info[10]); i++) {
-            Nodo nodo= new Nodo();
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0);
-            nodo.setInfo(hilo_ensam);
-            cola_ensam.Encolar(nodo);
-            hilo_ensam.start();
+        for (int i = 0; i < array_ensam_ale.length; i++) {
+            if (array_ensam_ale[i]!=null) {
+                array_ensam_ale[i].start();
+            }
         }
         
         
         
-        //Aqui con txt se deberían llenar las colas para luego más abajo con el size de las colas representarlo en los jTextfields
-        
-        //Ale
-        Cola p_botones_ale = new Cola();
-        
-                for (int i = 0; i < Integer.parseInt(info[12]); i++) {
-            Nodo nodo= new Nodo();
-            int produccion_boton_ale=2;
-            Productor_botones hilo_boton= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_boton_ale, 1);
-            nodo.setInfo(hilo_boton);
-            p_botones_ale.Encolar(nodo);
-            hilo_boton.start();
-        }
-        
-        Cola p_camara_ale = new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[14]); i++) {
-            Nodo nodo= new Nodo();
-            int dia_ale= 3;
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale, 1);
-            nodo.setInfo(hilo_camara);
-            p_camara_ale.Encolar(nodo);
-            hilo_camara.start();
-        }
-        
-        Cola p_pantalla_ale= new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[11]); i++) {
-            Nodo nodo= new Nodo();
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1);
-            nodo.setInfo(hilo_pantalla);
-            p_pantalla_ale.Encolar(nodo);
-            hilo_pantalla.start();
-        }
-        
-        Cola p_pin_ale= new Cola();
-        
-        for (int i = 0; i < Integer.parseInt(info[13]); i++) {
-            Nodo nodo= new Nodo();
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1);
-            nodo.setInfo(hilo_pin);
-            p_pin_ale.Encolar(nodo);
-            hilo_pin.start();
-        }
-        
-        
-        Cola cola_ensam_ale= new Cola();
-        int camara_ale=4;
-        int pantalla_ale=1;
-        int boton_ale=3;
-        int pin_ale=1;
-        for (int i = 0; i < Integer.parseInt(info[15]); i++) {
-            Nodo nodo= new Nodo();
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1);
-            nodo.setInfo(hilo_ensam);
-            cola_ensam_ale.Encolar(nodo);
-            hilo_ensam.start();
-        }
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -1801,6 +1856,42 @@ public class maininterfaz extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+        int suma_john=Integer.parseInt(jTextField5.getText()) + Integer.parseInt(jTextField6.getText()) + Integer.parseInt(jTextField7.getText()) + Integer.parseInt(jTextField8.getText()) + Integer.parseInt(jTextField9.getText()) + 1 ;
+            if (suma_john==15) {
+                JOptionPane.showMessageDialog(null, "El número de Productores y Ensambladores para la Planta 1 no puede ser mayor a 14");
+                return;
+            }
+        String valor= jTextField9.getText();
+        int entero= Integer.parseInt(valor);
+        entero++;
+        valor= Integer.toString(entero);
+        jTextField9.setText(valor);
+        int camara=4;
+        int pantalla=2;
+        int boton=3;
+        int pin=1;
+        if (start==false) {
+            
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0);
+            for (int i = 0; i < array_ensam.length; i++) {
+                if (array_ensam[i]==null) {
+                    array_ensam[i]=hilo_ensam;
+                    break;
+                }
+            }
+        }
+        else{
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0);
+            for (int i = 0; i < array_ensam.length; i++) {
+                if (array_ensam[i]==null) {
+                    array_ensam[i]=hilo_ensam;
+                    break;
+                }
+            }
+            hilo_ensam.start();
+            
+        }
+        
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
@@ -1809,14 +1900,104 @@ public class maininterfaz extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+        int suma_john=Integer.parseInt(jTextField9.getText()) - 1 ;
+            if (suma_john==0) {
+                JOptionPane.showMessageDialog(null, "El número empleados Productores o Ensambladores de cualquier tipo no puede ser menor que 1");
+                return;
+            }
+        String valor= jTextField9.getText();
+        int entero= Integer.parseInt(valor);
+        entero--;
+        valor= Integer.toString(entero);
+        jTextField9.setText(valor);
+        if (start==false) {
+            
+            for (int i = 0; i < array_ensam.length; i++) {
+                if (array_ensam[i]==null) {
+                    array_ensam[i-1]=null;
+                    break;
+                }
+            }
+        }
+        else{
+            for (int i = 0; i < array_ensam.length; i++) {
+                if (array_ensam[i]==null) {
+                    array_ensam[i-1].stop();
+                    array_ensam[i]=null;
+                    break;
+                }
+            }
+            
+        }
+        
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        int suma_john=Integer.parseInt(jTextField5.getText()) + Integer.parseInt(jTextField6.getText()) + Integer.parseInt(jTextField7.getText()) + Integer.parseInt(jTextField8.getText()) + Integer.parseInt(jTextField9.getText()) + 1 ;
+            if (suma_john==15) {
+                JOptionPane.showMessageDialog(null, "El número de Productores y Ensambladores para la Planta 1 no puede ser mayor a 14");
+                return;
+            }
+        String valor= jTextField8.getText();
+        int entero= Integer.parseInt(valor);
+        entero++;
+        valor= Integer.toString(entero);
+        jTextField8.setText(valor);
+        if (start==false) {
+            
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0);
+            for (int i = 0; i < p_pin.length; i++) {
+                if (p_pin[i]==null) {
+                    p_pin[i]=hilo_pin;
+                    break;
+                }
+            }
+        }
+        else{
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0);
+            for (int i = 0; i < p_pin.length; i++) {
+                if (p_pin[i]==null) {
+                    p_pin[i]=hilo_pin;
+                    break;
+                }
+            }
+            hilo_pin.start();
+            
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        int suma_john=Integer.parseInt(jTextField8.getText()) - 1 ;
+            if (suma_john==0) {
+                JOptionPane.showMessageDialog(null, "El número empleados Productores o Ensambladores de cualquier tipo no puede ser menor que 1");
+                return;
+            }
+        String valor= jTextField8.getText();
+        int entero= Integer.parseInt(valor);
+        entero--;
+        valor= Integer.toString(entero);
+        jTextField8.setText(valor);
+        if (start==false) {
+            
+            for (int i = 0; i < p_pin.length; i++) {
+                if (p_pin[i]==null) {
+                    p_pin[i-1]=null;
+                    break;
+                }
+            }
+        }
+        else{
+            for (int i = 0; i < p_pin.length; i++) {
+                if (p_pin[i]==null) {
+                    p_pin[i-1].stop();
+                    p_pin[i]=null;
+                    break;
+                }
+            }
+            
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
@@ -1829,14 +2010,107 @@ public class maininterfaz extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        int suma_john=Integer.parseInt(jTextField7.getText()) - 1 ;
+            if (suma_john==0) {
+                JOptionPane.showMessageDialog(null, "El número empleados Productores o Ensambladores de cualquier tipo no puede ser menor que 1");
+                return;
+            }
+        String valor= jTextField7.getText();
+        int entero= Integer.parseInt(valor);
+        entero--;
+        valor= Integer.toString(entero);
+        jTextField7.setText(valor);
+        if (start==false) {
+            
+            for (int i = 0; i < p_camara.length; i++) {
+                if (p_camara[i]==null) {
+                    p_camara[i-1]=null;
+                    break;
+                }
+            }
+        }
+        else{
+            for (int i = 0; i < p_camara.length; i++) {
+                if (p_camara[i]==null) {
+                    p_camara[i-1].stop();
+                    p_camara[i]=null;
+                    break;
+                }
+            }
+            
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        int suma_john=Integer.parseInt(jTextField5.getText()) + Integer.parseInt(jTextField6.getText()) + Integer.parseInt(jTextField7.getText()) + Integer.parseInt(jTextField8.getText()) + Integer.parseInt(jTextField9.getText()) + 1 ;
+            if (suma_john==15) {
+                JOptionPane.showMessageDialog(null, "El número de Productores y Ensambladores para la Planta 1 no puede ser mayor a 14");
+                return;
+            }
+        int dia_john=2;
+        String valor= jTextField7.getText();
+        int entero= Integer.parseInt(valor);
+        entero++;
+        valor= Integer.toString(entero);
+        jTextField7.setText(valor);
+        if (start==false) {
+            
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0);
+            for (int i = 0; i < p_camara.length; i++) {
+                if (p_camara[i]==null) {
+                    p_camara[i]=hilo_camara;
+                    break;
+                }
+            }
+        }
+        else{
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0);
+            for (int i = 0; i < p_camara.length; i++) {
+                if (p_camara[i]==null) {
+                    p_camara[i]=hilo_camara;
+                    break;
+                }
+            }
+            hilo_camara.start();
+            
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        int suma_john=Integer.parseInt(jTextField5.getText()) + Integer.parseInt(jTextField6.getText()) + Integer.parseInt(jTextField7.getText()) + Integer.parseInt(jTextField8.getText()) + Integer.parseInt(jTextField9.getText()) + 1 ;
+            if (suma_john==15) {
+                JOptionPane.showMessageDialog(null, "El número de Productores y Ensambladores para la Planta 1 no puede ser mayor a 14");
+                return;
+            }
+        int produccion_boton=2;
+        String valor= jTextField6.getText();
+        int entero= Integer.parseInt(valor);
+        entero++;
+        valor= Integer.toString(entero);
+        jTextField6.setText(valor);
+        if (start==false) {
+            
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0);
+            for (int i = 0; i < p_botones.length; i++) {
+                if (p_botones[i]==null) {
+                    p_botones[i]=hilo_boton;
+                    break;
+                }
+            }
+        }
+        else{
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0);
+            for (int i = 0; i < p_botones.length; i++) {
+                if (p_botones[i]==null) {
+                    p_botones[i]=hilo_boton;
+                    break;
+                }
+            }
+            hilo_boton.start();
+            
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
@@ -1845,19 +2119,69 @@ public class maininterfaz extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        int suma_john=Integer.parseInt(jTextField6.getText()) - 1 ;
+            if (suma_john==0) {
+                JOptionPane.showMessageDialog(null, "El número empleados Productores o Ensambladores de cualquier tipo no puede ser menor que 1");
+                return;
+            }
+        String valor= jTextField6.getText();
+        int entero= Integer.parseInt(valor);
+        entero--;
+        valor= Integer.toString(entero);
+        jTextField6.setText(valor);
+        if (start==false) {
+            
+            for (int i = 0; i < p_botones.length; i++) {
+                if (p_botones[i]==null) {
+                    p_botones[i-1]=null;
+                    break;
+                }
+            }
+        }
+        else{
+            for (int i = 0; i < p_botones.length; i++) {
+                if (p_botones[i]==null) {
+                    p_botones[i-1].stop();
+                    p_botones[i]=null;
+                    break;
+                }
+            }
+            
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        int suma_john=Integer.parseInt(jTextField5.getText()) - 1 ;
+            if (suma_john==0) {
+                JOptionPane.showMessageDialog(null, "El número empleados Productores o Ensambladores de cualquier tipo no puede ser menor que 1");
+                return;
+            }
+        String valor= jTextField5.getText();
+        int entero= Integer.parseInt(valor);
+        entero--;
+        valor= Integer.toString(entero);
+        jTextField5.setText(valor);
+        if (start==false) {
+            
+            for (int i = 0; i < p_pantalla.length; i++) {
+                if (p_pantalla[i]==null) {
+                    p_pantalla[i-1]=null;
+                    break;
+                }
+            }
+        }
+        else{
+            for (int i = 0; i < p_pantalla.length; i++) {
+                if (p_pantalla[i]==null) {
+                    p_pantalla[i-1].stop();
+                    p_pantalla[i]=null;
+                    break;
+                }
+            }
+            
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-//        if (!start) {
-//            Nodo nodo= new Nodo();
-//            Productor_pantalla pro_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla);
-//        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
         // TODO add your handling code here:
@@ -1959,6 +2283,41 @@ public class maininterfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField25ActionPerformed
 
+    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+        // TODO add your handling code here:
+        int suma_john=Integer.parseInt(jTextField5.getText()) + Integer.parseInt(jTextField6.getText()) + Integer.parseInt(jTextField7.getText()) + Integer.parseInt(jTextField8.getText()) + Integer.parseInt(jTextField9.getText()) + 1 ;
+            if (suma_john==15) {
+                JOptionPane.showMessageDialog(null, "El número de Productores y Ensambladores para la Planta 1 no puede ser mayor a 14");
+                return;
+            }
+        String valor= jTextField5.getText();
+        int entero= Integer.parseInt(valor);
+        entero++;
+        valor= Integer.toString(entero);
+        jTextField5.setText(valor);
+        if (start==false) {
+            
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0);
+            for (int i = 0; i < p_pantalla.length; i++) {
+                if (p_pantalla[i]==null) {
+                    p_pantalla[i]=hilo_pantalla;
+                    break;
+                }
+            }
+        }
+        else{
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0);
+            for (int i = 0; i < p_pantalla.length; i++) {
+                if (p_pantalla[i]==null) {
+                    p_pantalla[i]=hilo_pantalla;
+                    break;
+                }
+            }
+            hilo_pantalla.start();
+            
+        }
+    }//GEN-LAST:event_jButton24ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1997,7 +2356,6 @@ public class maininterfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
@@ -2013,6 +2371,7 @@ public class maininterfaz extends javax.swing.JFrame {
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
+    private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

@@ -20,7 +20,7 @@ import java.util.concurrent.Semaphore;
  *
  * @author johnd
  */
-//public class Main {
+public class Main {
 //    public static volatile int n_pantallas;
 //    public static volatile int n_botones;
 //    public static volatile int n_pin;
@@ -34,7 +34,7 @@ import java.util.concurrent.Semaphore;
 //    public static int cedula_1=4;
 //    
 //    
-//    public static void main(String[] args) {
+public static void main(String[] args) {
 //        maininterfaz a = new maininterfaz();
 //        a.setVisible(true);
 //        System.out.println("Comienza ejecución");
@@ -116,5 +116,13 @@ import java.util.concurrent.Semaphore;
 //            
 //        }
 ////
-////    }
-//}
+//    int array []= new int[5];
+//    array[0]=0;
+//    array[1]=1;
+//    array[2]=2;
+//    
+//    for (int i = 0; i < array.; i++) {
+//        System.out.println(array[i]);
+//    }
+   }
+}
