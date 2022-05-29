@@ -64,7 +64,7 @@ public class Ensamblador extends Thread {
 
     @Override
     public void run() {
-        while (maininterfaz.dias_despacho!=0) {
+        while (maininterfaz.dias_despacho>0 || maininterfaz.dias_despacho_ale>0) {
                 try {
                     
                     Thread.sleep(duracion*2); 
@@ -78,13 +78,13 @@ public class Ensamblador extends Thread {
                     mutex_pin.acquire();
                     
                     
-                    if (id==0) {
+                    if (id==0 && maininterfaz.dias_despacho>0) {
                    maininterfaz.n_botones-=boton;
                    maininterfaz.n_camara-=camara;
                    maininterfaz.n_pantallas-=pantalla;
                    maininterfaz.n_pin-=pin;
                }
-               else{
+                    else if(id==1 && maininterfaz.dias_despacho_ale>0){
                    maininterfaz.n_botones_ale-=boton;
                    maininterfaz.n_camara_ale-=camara;
                    maininterfaz.n_pantallas_ale-=pantalla;
@@ -105,13 +105,13 @@ public class Ensamblador extends Thread {
                     
                     mutex_ensam.acquire();
                     
-                    if (id==0) {
+                    if (id==0 && maininterfaz.dias_despacho>0) {
                    maininterfaz.n_celulares+=1;
                         
                    maininterfaz.jTextField11.setText(Integer.toString(maininterfaz.n_celulares));
                    
                }
-               else{
+                    else if(id==1 && maininterfaz.dias_despacho_ale>0){
                    maininterfaz.n_celulares_ale+=1;
                    maininterfaz.jTextField25.setText(Integer.toString(maininterfaz.n_celulares_ale));
                }

@@ -41,6 +41,7 @@ public class maininterfaz extends javax.swing.JFrame {
     public static volatile int n_camara;
     public static volatile int n_celulares;
     public static volatile int dias_despacho;
+    public static volatile int dias_despacho_ale;
     public static volatile int n_pantallas_ale;
     public static volatile int n_botones_ale;
     public static volatile int n_pin_ale;
@@ -99,12 +100,14 @@ public class maininterfaz extends javax.swing.JFrame {
     public static int salario_camara;
     public static int salario_pantalla;
     public static int salario_pin;
+    public static int salario_ensam;
     public static int salario_jefe;
     public static int salario_gerente;
     public static int salario_boton_ale;
     public static int salario_camara_ale;
     public static int salario_pantalla_ale;
     public static int salario_pin_ale;
+    public static int salario_ensam_ale;
     public static int salario_jefe_ale;
     public static int salario_gerente_ale;
     public static long duracion_1;
@@ -148,6 +151,8 @@ public class maininterfaz extends javax.swing.JFrame {
         this.salario_pin_ale=0;
         this.salario_jefe_ale=0;
         this.salario_gerente_ale=0;
+        this.salario_ensam= 0;
+        this.salario_ensam_ale=0;
         
         this.dato_boton=dato_boton;
         this.espacio_boton=espacio_boton;
@@ -188,6 +193,7 @@ public class maininterfaz extends javax.swing.JFrame {
         this.duracion_1=Jefe.duracion_dia_real(ci_john);
         this.duracion_2=Jefe.duracion_dia_real(ci_ale);
         this.dias_despacho= Integer.parseInt(info[1]); 
+        this.dias_despacho_ale= Integer.parseInt(info[1]);
         
         //Semáforos
         //John
@@ -1780,7 +1786,9 @@ public class maininterfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
         start=true;
         Jefe jefe = new Jefe(ci_john, mutex_jefe, 0);
+        Jefe jefe_ale= new Jefe(ci_ale, mutex_jefe_ale, 1);
         jefe.start();
+        jefe_ale.start();
         
         //Arrays
         ////John

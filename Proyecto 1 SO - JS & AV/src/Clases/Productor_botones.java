@@ -34,18 +34,19 @@ public class Productor_botones extends Thread {
 
     @Override
     public void run() {
-        while (maininterfaz.dias_despacho != 0) {
-            try {
                 double dormido = (duracion/ produccion);
                 dormido = Math.round(dormido);
                 long l_dormido = (new Double(dormido)).longValue();
+        while (maininterfaz.dias_despacho > 0 || maininterfaz.dias_despacho_ale>0) {
+            try {
+                
                 Thread.sleep(l_dormido);
                 espacio.acquire();
                 mutex.acquire();
-                if (id == 0) {
+                if (id == 0 && maininterfaz.dias_despacho>0) {
                     maininterfaz.n_botones += 1;
                     maininterfaz.jTextField2.setText(Integer.toString(maininterfaz.n_botones));
-                } else {
+                } else if(id == 1 && maininterfaz.dias_despacho_ale>0) {
                     maininterfaz.n_botones_ale += 1;
                     maininterfaz.jTextField15.setText(Integer.toString(maininterfaz.n_botones_ale));
                 }

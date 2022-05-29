@@ -36,7 +36,7 @@ public class Productor_pantalla extends Thread {
 
     @Override
     public void run() {
-        while (maininterfaz.dias_despacho != 0) {
+        while (maininterfaz.dias_despacho > 0 || maininterfaz.dias_despacho_ale>0) {
             try {
                 double dormido = duracion / 2;
                 dormido = Math.round(dormido);
@@ -45,10 +45,10 @@ public class Productor_pantalla extends Thread {
                 Thread.sleep(l_dormido);
                 espacio.acquire();
                 mutex.acquire();
-                if (id == 0) {
+                if (id == 0 && maininterfaz.dias_despacho>0) {
                     maininterfaz.n_pantallas += 1;
                     maininterfaz.jTextField1.setText(Integer.toString(maininterfaz.n_pantallas));
-                } else {
+                } else if(id==1 && maininterfaz.dias_despacho_ale>0) {
                     maininterfaz.n_pantallas_ale += 1;
                     maininterfaz.jTextField14.setText(Integer.toString(maininterfaz.n_pantallas_ale));
                 }

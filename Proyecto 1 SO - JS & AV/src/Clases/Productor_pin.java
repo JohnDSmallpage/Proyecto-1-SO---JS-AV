@@ -36,15 +36,15 @@ public class Productor_pin extends Thread {
 
     @Override
     public void run() {
-        while (maininterfaz.dias_despacho != 0) {
+        while (maininterfaz.dias_despacho > 0 || maininterfaz.dias_despacho_ale>0) {
             try {
                 Thread.sleep(duracion * 3);
                 espacio.acquire();
                 mutex.acquire();
-                if (id == 0) {
+                if (id == 0 && maininterfaz.dias_despacho>0) {
                     maininterfaz.n_pin += 1;
                     maininterfaz.jTextField4.setText(Integer.toString(maininterfaz.n_pin));
-                } else {
+                } else if(id==1 && maininterfaz.dias_despacho_ale>0) {
                     maininterfaz.n_pin_ale += 1;
                     maininterfaz.jTextField17.setText(Integer.toString(maininterfaz.n_pin_ale));
                 }
