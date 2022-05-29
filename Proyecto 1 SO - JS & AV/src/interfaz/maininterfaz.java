@@ -41,6 +41,7 @@ public class maininterfaz extends javax.swing.JFrame {
     public static volatile int n_camara;
     public static volatile int n_celulares;
     public static volatile int dias_despacho;
+    public static volatile int dias_despacho_ale;
     public static volatile int n_pantallas_ale;
     public static volatile int n_botones_ale;
     public static volatile int n_pin_ale;
@@ -81,6 +82,8 @@ public class maininterfaz extends javax.swing.JFrame {
     private static Semaphore mutex_pin_ale;
     private static Semaphore mutex_ensam;
     private static Semaphore mutex_ensam_ale;
+    private static Semaphore mutex_jefe;
+    private static Semaphore mutex_jefe_ale;
     public static Funciones txt;
     public static String info [];
     public static Productor_botones p_botones [];
@@ -93,7 +96,22 @@ public class maininterfaz extends javax.swing.JFrame {
     public static Productor_pantalla p_pantalla_ale [];
     public static Productor_pin p_pin_ale [];
     public static Ensamblador array_ensam_ale [];
-    
+    public static int salario_boton;
+    public static int salario_camara;
+    public static int salario_pantalla;
+    public static int salario_pin;
+    public static int salario_ensam;
+    public static int salario_jefe;
+    public static int salario_gerente;
+    public static int salario_boton_ale;
+    public static int salario_camara_ale;
+    public static int salario_pantalla_ale;
+    public static int salario_pin_ale;
+    public static int salario_ensam_ale;
+    public static int salario_jefe_ale;
+    public static int salario_gerente_ale;
+    public static long duracion_1;
+    public static long duracion_2;
     
     public maininterfaz() {
         initComponents();
@@ -119,6 +137,23 @@ public class maininterfaz extends javax.swing.JFrame {
         this.dia_duracion= Integer.parseInt(info[0]);
         this.start=false;
         this.info=info;
+        
+        
+        this.salario_boton=0;
+        this.salario_camara=0;
+        this.salario_pantalla=0;
+        this.salario_pin=0;
+        this.salario_jefe=0;
+        this.salario_gerente=0;
+        this.salario_boton_ale=0;
+        this.salario_camara_ale=0;
+        this.salario_pantalla_ale=0;
+        this.salario_pin_ale=0;
+        this.salario_jefe_ale=0;
+        this.salario_gerente_ale=0;
+        this.salario_ensam= 0;
+        this.salario_ensam_ale=0;
+        
         this.dato_boton=dato_boton;
         this.espacio_boton=espacio_boton;
         this.mutex_boton=mutex_boton;
@@ -145,6 +180,8 @@ public class maininterfaz extends javax.swing.JFrame {
         this.mutex_pin_ale=mutex_pin_ale;
         this.mutex_ensam= mutex_ensam;
         this.mutex_ensam_ale= mutex_ensam_ale;
+        this.mutex_jefe= mutex_jefe;
+        this.mutex_jefe_ale= mutex_jefe_ale;
         
         //Variables estáticos
         this.max_pantallas= Integer.parseInt(info[2]);
@@ -153,7 +190,10 @@ public class maininterfaz extends javax.swing.JFrame {
         this.max_camara= Integer.parseInt(info[5]);
         this.ci_john= 4;
         this.ci_ale= 5;
+        this.duracion_1=Jefe.duracion_dia_real(ci_john);
+        this.duracion_2=Jefe.duracion_dia_real(ci_ale);
         this.dias_despacho= Integer.parseInt(info[1]); 
+        this.dias_despacho_ale= Integer.parseInt(info[1]);
         
         //Semáforos
         //John
@@ -203,6 +243,10 @@ public class maininterfaz extends javax.swing.JFrame {
         this.dato_pin_ale= new Semaphore(0, true);
         this.espacio_pin_ale= new Semaphore(max_pin, true);
         this.mutex_pin_ale= new Semaphore(1, true);
+        
+        //jefes
+        this.mutex_jefe= new Semaphore(1, true);
+        this.mutex_jefe_ale= new Semaphore(1, true);
         
        
         this.p_botones= new Productor_botones[ci_ale+10];
@@ -262,7 +306,7 @@ public class maininterfaz extends javax.swing.JFrame {
         
         for (int i = 0; i < Integer.parseInt(maininterfaz.info[7]); i++) {
             int produccion_boton=2;
-            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0);
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0, duracion_1);
             p_botones[i]=hilo_boton;
             
         }
@@ -270,21 +314,21 @@ public class maininterfaz extends javax.swing.JFrame {
         
         for (int i = 0; i < Integer.parseInt(info[9]); i++) {
             int dia_john=2;
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0);
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0, duracion_1);
             p_camara[i]=hilo_camara;
             
         }
         
         
         for (int i = 0; i < Integer.parseInt(info[6]); i++) {
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0);
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0, duracion_1);
             p_pantalla[i]=hilo_pantalla;
             
         }
         
         
         for (int i = 0; i < Integer.parseInt(info[8]); i++) {
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0);
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0, duracion_1);
             p_pin[i]=hilo_pin;
             
         }
@@ -294,7 +338,7 @@ public class maininterfaz extends javax.swing.JFrame {
         int boton=3;
         int pin=1;
         for (int i = 0; i < Integer.parseInt(info[10]); i++) {
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0);
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0, duracion_1);
             array_ensam[i]=hilo_ensam;
             
         }
@@ -307,7 +351,7 @@ public class maininterfaz extends javax.swing.JFrame {
         
                 for (int i = 0; i < Integer.parseInt(info[12]); i++) {
             int produccion_boton_ale=2;
-            Productor_botones hilo_boton= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_boton_ale, 1);
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_boton_ale, 1, duracion_2);
             p_botones_ale[i]=hilo_boton;
             
         }
@@ -315,21 +359,21 @@ public class maininterfaz extends javax.swing.JFrame {
         
         for (int i = 0; i < Integer.parseInt(info[14]); i++) {
             int dia_ale= 3;
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale, 1);
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale, 1, duracion_2);
             p_camara_ale[i]=hilo_camara;
             
         }
         
         
         for (int i = 0; i < Integer.parseInt(info[11]); i++) {
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1);
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1, duracion_2);
             p_pantalla_ale[i]=hilo_pantalla;
             
         }
         
         
         for (int i = 0; i < Integer.parseInt(info[13]); i++) {
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1);
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1, duracion_2);
             p_pin_ale[i]=hilo_pin;
            
         }
@@ -340,7 +384,7 @@ public class maininterfaz extends javax.swing.JFrame {
         int boton_ale=3;
         int pin_ale=1;
         for (int i = 0; i < Integer.parseInt(info[15]); i++) {
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1);
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1, duracion_2);
             array_ensam_ale[i]=hilo_ensam;
             
         }
@@ -1980,8 +2024,10 @@ public class maininterfaz extends javax.swing.JFrame {
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
         start=true;
-        Jefe jefe = new Jefe();
+        Jefe jefe = new Jefe(ci_john, mutex_jefe, 0);
+        Jefe jefe_ale= new Jefe(ci_ale, mutex_jefe_ale, 1);
         jefe.start();
+        jefe_ale.start();
         
         //Arrays
         ////John
@@ -2049,6 +2095,19 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         
+//        while (dias_despacho!=0) {            
+//            System.out.println("Dia: " + dias_despacho);
+//            System.out.println("Salario botones: " + salario_boton);
+//            System.out.println("Salario camara: " + salario_camara);
+//            System.out.println("Salario pantalla: " + salario_pantalla);
+//            System.out.println("Salario pines: " + salario_pin);
+//            System.out.println("Salario jefe: " + salario_jefe);
+//            System.out.println("Salario gerente: " + salario_gerente);
+//            System.out.println("");
+//        }
+        
+        
+        
         
         
     }//GEN-LAST:event_jButton12ActionPerformed
@@ -2092,7 +2151,7 @@ public class maininterfaz extends javax.swing.JFrame {
         int pin=1;
         if (start==false) {
             
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0);
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0, duracion_1);
             for (int i = 0; i < array_ensam.length; i++) {
                 if (array_ensam[i]==null) {
                     array_ensam[i]=hilo_ensam;
@@ -2101,7 +2160,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0);
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0, duracion_1);
             for (int i = 0; i < array_ensam.length; i++) {
                 if (array_ensam[i]==null) {
                     array_ensam[i]=hilo_ensam;
@@ -2143,7 +2202,7 @@ public class maininterfaz extends javax.swing.JFrame {
             for (int i = 0; i < array_ensam.length; i++) {
                 if (array_ensam[i]==null) {
                     array_ensam[i-1].stop();
-                    array_ensam[i]=null;
+                    array_ensam[i-1]=null;
                     break;
                 }
             }
@@ -2166,7 +2225,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField8.setText(valor);
         if (start==false) {
             
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0);
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0, duracion_1);
             for (int i = 0; i < p_pin.length; i++) {
                 if (p_pin[i]==null) {
                     p_pin[i]=hilo_pin;
@@ -2175,7 +2234,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0);
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0, duracion_1);
             for (int i = 0; i < p_pin.length; i++) {
                 if (p_pin[i]==null) {
                     p_pin[i]=hilo_pin;
@@ -2212,7 +2271,7 @@ public class maininterfaz extends javax.swing.JFrame {
             for (int i = 0; i < p_pin.length; i++) {
                 if (p_pin[i]==null) {
                     p_pin[i-1].stop();
-                    p_pin[i]=null;
+                    p_pin[i-1]=null;
                     break;
                 }
             }
@@ -2253,7 +2312,7 @@ public class maininterfaz extends javax.swing.JFrame {
             for (int i = 0; i < p_camara.length; i++) {
                 if (p_camara[i]==null) {
                     p_camara[i-1].stop();
-                    p_camara[i]=null;
+                    p_camara[i-1]=null;
                     break;
                 }
             }
@@ -2276,7 +2335,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField7.setText(valor);
         if (start==false) {
             
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0);
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0, duracion_1);
             for (int i = 0; i < p_camara.length; i++) {
                 if (p_camara[i]==null) {
                     p_camara[i]=hilo_camara;
@@ -2285,7 +2344,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0);
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0, duracion_1);
             for (int i = 0; i < p_camara.length; i++) {
                 if (p_camara[i]==null) {
                     p_camara[i]=hilo_camara;
@@ -2312,7 +2371,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField6.setText(valor);
         if (start==false) {
             
-            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0);
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0, duracion_1);
             for (int i = 0; i < p_botones.length; i++) {
                 if (p_botones[i]==null) {
                     p_botones[i]=hilo_boton;
@@ -2321,7 +2380,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0);
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0, duracion_1);
             for (int i = 0; i < p_botones.length; i++) {
                 if (p_botones[i]==null) {
                     p_botones[i]=hilo_boton;
@@ -2362,7 +2421,7 @@ public class maininterfaz extends javax.swing.JFrame {
             for (int i = 0; i < p_botones.length; i++) {
                 if (p_botones[i]==null) {
                     p_botones[i-1].stop();
-                    p_botones[i]=null;
+                    p_botones[i-1]=null;
                     break;
                 }
             }
@@ -2395,7 +2454,7 @@ public class maininterfaz extends javax.swing.JFrame {
             for (int i = 0; i < p_pantalla.length; i++) {
                 if (p_pantalla[i]==null) {
                     p_pantalla[i-1].stop();
-                    p_pantalla[i]=null;
+                    p_pantalla[i-1]=null;
                     break;
                 }
             }
@@ -2457,7 +2516,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField18.setText(valor);
         if (start==false) {
             
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1);
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1, duracion_2);
             for (int i = 0; i < p_pantalla_ale.length; i++) {
                 if (p_pantalla_ale[i]==null) {
                     p_pantalla_ale[i]=hilo_pantalla;
@@ -2466,7 +2525,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1);
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1, duracion_2);
             for (int i = 0; i < p_pantalla_ale.length; i++) {
                 if (p_pantalla_ale[i]==null) {
                     p_pantalla_ale[i]=hilo_pantalla;
@@ -2503,7 +2562,7 @@ public class maininterfaz extends javax.swing.JFrame {
             for (int i = 0; i < p_pantalla_ale.length; i++) {
                 if (p_pantalla_ale[i]==null) {
                     p_pantalla_ale[i-1].stop();
-                    p_pantalla_ale[i]=null;
+                    p_pantalla_ale[i-1]=null;
                     break;
                 }
             }
@@ -2536,7 +2595,7 @@ public class maininterfaz extends javax.swing.JFrame {
             for (int i = 0; i < p_botones_ale.length; i++) {
                 if (p_botones_ale[i]==null) {
                     p_botones_ale[i-1].stop();
-                    p_botones_ale[i]=null;
+                    p_botones_ale[i-1]=null;
                     break;
                 }
             }
@@ -2563,7 +2622,7 @@ public class maininterfaz extends javax.swing.JFrame {
         int produccion_ale=2;
         if (start==false) {
             
-            Productor_botones hilo_botones= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_ale, 1);
+            Productor_botones hilo_botones= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_ale, 1, duracion_2);
             for (int i = 0; i < p_botones_ale.length; i++) {
                 if (p_botones_ale[i]==null) {
                     p_botones_ale[i]=hilo_botones;
@@ -2572,7 +2631,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_botones hilo_botones= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_ale, 1);
+            Productor_botones hilo_botones= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_ale, 1, duracion_2);
             for (int i = 0; i < p_botones_ale.length; i++) {
                 if (p_botones_ale[i]==null) {
                     p_botones_ale[i]=hilo_botones;
@@ -2599,7 +2658,7 @@ public class maininterfaz extends javax.swing.JFrame {
         int dia_ale=3;
         if (start==false) {
             
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale , 1);
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale , 1, duracion_2);
             for (int i = 0; i < p_camara_ale.length; i++) {
                 if (p_camara_ale[i]==null) {
                     p_camara_ale[i]=hilo_camara;
@@ -2608,7 +2667,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale , 1);
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale , 1, duracion_2);
             for (int i = 0; i < p_camara_ale.length; i++) {
                 if (p_camara_ale[i]==null) {
                     p_camara_ale[i]=hilo_camara;
@@ -2645,7 +2704,7 @@ public class maininterfaz extends javax.swing.JFrame {
             for (int i = 0; i < p_camara_ale.length; i++) {
                 if (p_camara_ale[i]==null) {
                     p_camara_ale[i-1].stop();
-                    p_camara_ale[i]=null;
+                    p_camara_ale[i-1]=null;
                     break;
                 }
             }
@@ -2686,7 +2745,7 @@ public class maininterfaz extends javax.swing.JFrame {
             for (int i = 0; i < p_pin_ale.length; i++) {
                 if (p_pin_ale[i]==null) {
                     p_pin_ale[i-1].stop();
-                    p_pin_ale[i]=null;
+                    p_pin_ale[i-1]=null;
                     break;
                 }
             }
@@ -2709,7 +2768,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField21.setText(valor);
         if (start==false) {
             
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1);
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1, duracion_2);
             for (int i = 0; i < p_pin_ale.length; i++) {
                 if (p_pin_ale[i]==null) {
                     p_pin_ale[i]=hilo_pin;
@@ -2718,7 +2777,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1);
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1, duracion_2);
             for (int i = 0; i < p_pin_ale.length; i++) {
                 if (p_pin_ale[i]==null) {
                     p_pin_ale[i]=hilo_pin;
@@ -2755,7 +2814,7 @@ public class maininterfaz extends javax.swing.JFrame {
             for (int i = 0; i < array_ensam_ale.length; i++) {
                 if (array_ensam_ale[i]==null) {
                     array_ensam_ale[i-1].stop();
-                    array_ensam_ale[i]=null;
+                    array_ensam_ale[i-1]=null;
                     break;
                 }
             }
@@ -2785,7 +2844,7 @@ public class maininterfaz extends javax.swing.JFrame {
         int pin_ale=1;
         if (start==false) {
             
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1);
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1, duracion_2);
             for (int i = 0; i < array_ensam_ale.length; i++) {
                 if (array_ensam_ale[i]==null) {
                     array_ensam_ale[i]=hilo_ensam;
@@ -2794,7 +2853,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1);
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1, duracion_2);
             for (int i = 0; i < array_ensam_ale.length; i++) {
                 if (array_ensam_ale[i]==null) {
                     array_ensam_ale[i]=hilo_ensam;
@@ -2825,7 +2884,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField5.setText(valor);
         if (start==false) {
             
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0);
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0, duracion_1);
             for (int i = 0; i < p_pantalla.length; i++) {
                 if (p_pantalla[i]==null) {
                     p_pantalla[i]=hilo_pantalla;
@@ -2834,7 +2893,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0);
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0, duracion_1);
             for (int i = 0; i < p_pantalla.length; i++) {
                 if (p_pantalla[i]==null) {
                     p_pantalla[i]=hilo_pantalla;
@@ -2922,6 +2981,8 @@ public class maininterfaz extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new maininterfaz().setVisible(true);
+                
+            
                 
             }
         });

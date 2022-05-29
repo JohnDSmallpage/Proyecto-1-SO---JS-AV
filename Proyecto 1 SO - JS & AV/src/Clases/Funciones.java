@@ -108,4 +108,14 @@ public class Funciones {
         }
     }
     
+    public static int contar(Object array[]){
+        int contador=0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i]!=null) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+    
 }

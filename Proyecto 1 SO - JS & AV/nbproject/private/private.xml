@@ -3,10 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/aleja/Desktop/Proyecto-1-SO---JS-AV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/interfaz/maininterfaz.java</file>
             <file>file:/C:/Users/aleja/Desktop/Proyecto-1-SO---JS-AV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/test/datos.csv</file>
             <file>file:/C:/Users/aleja/Desktop/Proyecto-1-SO---JS-AV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/interfaz/configuracion.java</file>
             <file>file:/C:/Users/aleja/Desktop/Proyecto-1-SO---JS-AV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/interfaz/dash.java</file>
+=======
+            <file>file:/C:/Users/johnd/Desktop/PROYECTO%201%20SO%20%20-%20SV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/Clases/Día.java</file>
+            <file>file:/C:/Users/johnd/Desktop/PROYECTO%201%20SO%20%20-%20SV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/Clases/Productor_pin.java</file>
+            <file>file:/C:/Users/johnd/Desktop/PROYECTO%201%20SO%20%20-%20SV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/Clases/Productor_pantalla.java</file>
+            <file>file:/C:/Users/johnd/Desktop/PROYECTO%201%20SO%20%20-%20SV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/Clases/Funciones.java</file>
+            <file>file:/C:/Users/johnd/Desktop/PROYECTO%201%20SO%20%20-%20SV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/Clases/Gerente.java</file>
+            <file>file:/C:/Users/johnd/Desktop/PROYECTO%201%20SO%20%20-%20SV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/Clases/Main.java</file>
+            <file>file:/C:/Users/johnd/Desktop/PROYECTO%201%20SO%20%20-%20SV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/Clases/Jefe.java</file>
+            <file>file:/C:/Users/johnd/Desktop/PROYECTO%201%20SO%20%20-%20SV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/Clases/Productor_camara.java</file>
+            <file>file:/C:/Users/johnd/Desktop/PROYECTO%201%20SO%20%20-%20SV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/Clases/Ensamblador.java</file>
+            <file>file:/C:/Users/johnd/Desktop/PROYECTO%201%20SO%20%20-%20SV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/interfaz/maininterfaz.java</file>
+            <file>file:/C:/Users/johnd/Desktop/PROYECTO%201%20SO%20%20-%20SV/Proyecto%201%20SO%20-%20JS%20&amp;%20AV/src/Clases/Productor_botones.java</file>
+>>>>>>> develop
         </group>
     </open-files>
 </project-private>

@@ -23,26 +23,28 @@ public class Productor_pin extends Thread {
     Semaphore dato;
     Semaphore espacio;
     int id;
+    long duracion;
 
-    public Productor_pin(Semaphore mutex, Semaphore dato, Semaphore espacio, int id) {
+    public Productor_pin(Semaphore mutex, Semaphore dato, Semaphore espacio, int id, long duracion) {
         this.mutex = mutex;
         this.dato = dato;
         this.espacio = espacio;
         this.id = id;
+        this.duracion=duracion;
 
     }
 
     @Override
     public void run() {
-        while (maininterfaz.dias_despacho != 0) {
+        while (maininterfaz.dias_despacho > 0 || maininterfaz.dias_despacho_ale>0) {
             try {
-                Thread.sleep(maininterfaz.dia_duracion * 3);
+                Thread.sleep(duracion * 3);
                 espacio.acquire();
                 mutex.acquire();
-                if (id == 0) {
+                if (id == 0 && maininterfaz.dias_despacho>0) {
                     maininterfaz.n_pin += 1;
                     maininterfaz.jTextField4.setText(Integer.toString(maininterfaz.n_pin));
-                } else {
+                } else if(id==1 && maininterfaz.dias_despacho_ale>0) {
                     maininterfaz.n_pin_ale += 1;
                     maininterfaz.jTextField17.setText(Integer.toString(maininterfaz.n_pin_ale));
                 }
