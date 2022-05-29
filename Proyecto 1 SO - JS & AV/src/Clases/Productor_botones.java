@@ -21,21 +21,22 @@ public class Productor_botones extends Thread {
     Semaphore espacio;
     int produccion;
     int id;
+    long duracion;
 
-    public Productor_botones(Semaphore mutex, Semaphore dato, Semaphore espacio, int produccion, int id) {
+    public Productor_botones(Semaphore mutex, Semaphore dato, Semaphore espacio, int produccion, int id, long duracion) {
         this.mutex = mutex;
         this.dato = dato;
         this.espacio = espacio;
         this.produccion = produccion;
         this.id = id;
-
+        this.duracion=duracion;
     }
 
     @Override
     public void run() {
         while (maininterfaz.dias_despacho != 0) {
             try {
-                double dormido = maininterfaz.dia_duracion / produccion;
+                double dormido = (duracion/ produccion);
                 dormido = Math.round(dormido);
                 long l_dormido = (new Double(dormido)).longValue();
                 Thread.sleep(l_dormido);

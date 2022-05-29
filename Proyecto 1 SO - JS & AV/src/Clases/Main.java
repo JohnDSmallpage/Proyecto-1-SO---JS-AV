@@ -124,5 +124,9 @@ public static void main(String[] args) {
 //    for (int i = 0; i < array.; i++) {
 //        System.out.println(array[i]);
 //    }
+int n_1=5;
+int n_2=24;
+float resultado=n_1/n_2;
+    System.out.println(resultado);
    }
 }
