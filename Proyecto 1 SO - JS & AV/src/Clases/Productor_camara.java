@@ -24,25 +24,25 @@ public class Productor_camara extends Thread {
     Semaphore espacio;
     int dia;
     int id;
-    long duracion;
 
-    public Productor_camara(Semaphore mutex, Semaphore dato, Semaphore espacio, int dia, int id, long duracion) {
+
+    public Productor_camara(Semaphore mutex, Semaphore dato, Semaphore espacio, int dia, int id) {
         this.mutex = mutex;
         this.dato = dato;
         this.espacio = espacio;
         this.dia = dia;
         this.id = id;
-        this.duracion=duracion;
+  
     }
 
     @Override
     public void run() {
         while (maininterfaz.dias_despacho >0 || maininterfaz.dias_despacho_ale>0) {
             try {
-                double dormido = (duracion);
+                double dormido = (maininterfaz.dia_duracion);
                 dormido = Math.round(dormido);
                 long l_dormido = (new Double(dormido)).longValue();
-                Thread.sleep(duracion * dia);
+                Thread.sleep(maininterfaz.dia_duracion * dia);
                 espacio.acquire();
                 mutex.acquire();
                 if (id == 0 && maininterfaz.dias_despacho>0) {

@@ -17,24 +17,29 @@ import java.util.logging.Logger;
  * @author johnd
  */
 public class Día extends Thread {
-//    @Override
-//    public void run(){
-//        while (maininterfaz.dias_despacho!=0) {            
-//          try {
-//            Thread.sleep(maininterfaz.dia_duracion);
-//            
-////              System.out.println("Día: " +  Main.day);
-////              System.out.println("El número de teléfonos producido fue: " + Main.n_celulares);
-////                System.out.println("El número de pantallas restantes en almacen fue: " + Main.n_pantallas);
-////                System.out.println("El número de pines restantes en almacen fue: " + Main.n_pin);
-////                System.out.println("El número de cámaras restantes en almacen fue: " + Main.n_camara);
-////                System.out.println("El número de botones en almacen fue: " + Main.n_botones);
-////                System.out.println("");
-//            
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(Día.class.getName()).log(Level.SEVERE, null, ex);
-//        }  
-//        }
-//        
-//    }
+    int id;
+    
+    public Día(int id){
+        this.id=id;
+    }
+    
+    @Override
+    public void run(){
+        while (maininterfaz.dias_despacho>0 || maininterfaz.dias_despacho_ale>0) {            
+          try {
+                  
+                  maininterfaz.dia_pasado=true;
+                  Thread.sleep(maininterfaz.dia_duracion);                
+                  maininterfaz.dia_pasado=false;
+                  
+              
+            
+            
+            
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Día.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        }
+        
+    }
 }

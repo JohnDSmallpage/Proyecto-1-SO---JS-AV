@@ -110,8 +110,14 @@ public class maininterfaz extends javax.swing.JFrame {
     public static int salario_ensam_ale;
     public static int salario_jefe_ale;
     public static int salario_gerente_ale;
-    public static long duracion_1;
-    public static long duracion_2;
+    public static int salario_total_1;
+    public static int salario_total_2;
+    public static boolean dia_pasado;
+    public static Día dia_actual;
+    public static boolean jugando;
+    public static boolean jugando_ale;
+    public static int contador_jefe;
+    public static int contador_jefe_ale;
     
     public maininterfaz() {
         initComponents();
@@ -153,6 +159,8 @@ public class maininterfaz extends javax.swing.JFrame {
         this.salario_gerente_ale=0;
         this.salario_ensam= 0;
         this.salario_ensam_ale=0;
+        this.salario_total_1=0;
+        this.salario_total_2=0;
         
         this.dato_boton=dato_boton;
         this.espacio_boton=espacio_boton;
@@ -190,8 +198,6 @@ public class maininterfaz extends javax.swing.JFrame {
         this.max_camara= Integer.parseInt(info[5]);
         this.ci_john= 4;
         this.ci_ale= 5;
-        this.duracion_1=Jefe.duracion_dia_real(ci_john);
-        this.duracion_2=Jefe.duracion_dia_real(ci_ale);
         this.dias_despacho= Integer.parseInt(info[1]); 
         this.dias_despacho_ale= Integer.parseInt(info[1]);
         
@@ -259,7 +265,12 @@ public class maininterfaz extends javax.swing.JFrame {
         this.p_pin_ale= new Productor_pin[ci_ale+10];
         this.array_ensam= new Ensamblador[ci_ale+10];
         this.array_ensam_ale= new Ensamblador[ci_ale+10];
-       
+        this.dia_pasado= dia_pasado;
+        this.jugando=jugando;
+        this.jugando_ale=jugando_ale;
+        this.contador_jefe=contador_jefe;
+        this.contador_jefe_ale= contador_jefe_ale;
+        
         
         
         //Asignación de valores en la interfaz
@@ -296,6 +307,7 @@ public class maininterfaz extends javax.swing.JFrame {
         
         //Día
         jTextField10.setText(Integer.toString(dias_despacho));
+        jTextField26.setText(Integer.toString(dias_despacho_ale));
         
         //Inicialización del contador Jefe
         
@@ -306,7 +318,7 @@ public class maininterfaz extends javax.swing.JFrame {
         
         for (int i = 0; i < Integer.parseInt(maininterfaz.info[7]); i++) {
             int produccion_boton=2;
-            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0, duracion_1);
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0);
             p_botones[i]=hilo_boton;
             
         }
@@ -314,21 +326,21 @@ public class maininterfaz extends javax.swing.JFrame {
         
         for (int i = 0; i < Integer.parseInt(info[9]); i++) {
             int dia_john=2;
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0, duracion_1);
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0);
             p_camara[i]=hilo_camara;
             
         }
         
         
         for (int i = 0; i < Integer.parseInt(info[6]); i++) {
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0, duracion_1);
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0);
             p_pantalla[i]=hilo_pantalla;
             
         }
         
         
         for (int i = 0; i < Integer.parseInt(info[8]); i++) {
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0, duracion_1);
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0);
             p_pin[i]=hilo_pin;
             
         }
@@ -338,7 +350,7 @@ public class maininterfaz extends javax.swing.JFrame {
         int boton=3;
         int pin=1;
         for (int i = 0; i < Integer.parseInt(info[10]); i++) {
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0, duracion_1);
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0);
             array_ensam[i]=hilo_ensam;
             
         }
@@ -351,7 +363,7 @@ public class maininterfaz extends javax.swing.JFrame {
         
                 for (int i = 0; i < Integer.parseInt(info[12]); i++) {
             int produccion_boton_ale=2;
-            Productor_botones hilo_boton= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_boton_ale, 1, duracion_2);
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_boton_ale, 1);
             p_botones_ale[i]=hilo_boton;
             
         }
@@ -359,21 +371,21 @@ public class maininterfaz extends javax.swing.JFrame {
         
         for (int i = 0; i < Integer.parseInt(info[14]); i++) {
             int dia_ale= 3;
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale, 1, duracion_2);
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale, 1);
             p_camara_ale[i]=hilo_camara;
             
         }
         
         
         for (int i = 0; i < Integer.parseInt(info[11]); i++) {
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1, duracion_2);
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1);
             p_pantalla_ale[i]=hilo_pantalla;
             
         }
         
         
         for (int i = 0; i < Integer.parseInt(info[13]); i++) {
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1, duracion_2);
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1);
             p_pin_ale[i]=hilo_pin;
            
         }
@@ -384,7 +396,7 @@ public class maininterfaz extends javax.swing.JFrame {
         int boton_ale=3;
         int pin_ale=1;
         for (int i = 0; i < Integer.parseInt(info[15]); i++) {
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1, duracion_2);
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1);
             array_ensam_ale[i]=hilo_ensam;
             
         }
@@ -458,6 +470,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField34 = new javax.swing.JTextField();
         jTextField35 = new javax.swing.JTextField();
         jTextField36 = new javax.swing.JTextField();
+        jTextField12 = new javax.swing.JTextField();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
@@ -520,6 +533,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField30 = new javax.swing.JTextField();
         jTextField31 = new javax.swing.JTextField();
         jTextField32 = new javax.swing.JTextField();
+        jTextField13 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -544,7 +558,6 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("PRODUCTOS:");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -700,7 +713,6 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("PRODUCTORES:");
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -783,7 +795,7 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1021,12 +1033,10 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel41.setBackground(new java.awt.Color(0, 0, 0));
         jLabel41.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel41.setForeground(new java.awt.Color(0, 0, 0));
         jLabel41.setText("JEFE:");
 
         jLabel40.setBackground(new java.awt.Color(0, 0, 0));
         jLabel40.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel40.setForeground(new java.awt.Color(0, 0, 0));
         jLabel40.setText("GERENTE:");
 
         jTextField33.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
@@ -1038,12 +1048,10 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel43.setBackground(new java.awt.Color(0, 0, 0));
         jLabel43.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel43.setForeground(new java.awt.Color(0, 0, 0));
         jLabel43.setText("SALARIO JEFE:");
 
         jLabel44.setBackground(new java.awt.Color(0, 0, 0));
         jLabel44.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel44.setForeground(new java.awt.Color(0, 0, 0));
         jLabel44.setText("CANTIDAD VENDIDA:");
 
         jTextField37.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
@@ -1062,12 +1070,10 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel42.setBackground(new java.awt.Color(0, 0, 0));
         jLabel42.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel42.setForeground(new java.awt.Color(0, 0, 0));
         jLabel42.setText("GASTOS - SALARIOS:");
 
         jLabel45.setBackground(new java.awt.Color(0, 0, 0));
         jLabel45.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel45.setForeground(new java.awt.Color(0, 0, 0));
         jLabel45.setText("GANANCIAS:");
 
         jTextField34.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
@@ -1150,7 +1156,10 @@ public class maininterfaz extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel42)
@@ -1167,7 +1176,7 @@ public class maininterfaz extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField36, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextField38, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1194,7 +1203,7 @@ public class maininterfaz extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
@@ -1222,12 +1231,13 @@ public class maininterfaz extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 2, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1243,7 +1253,7 @@ public class maininterfaz extends javax.swing.JFrame {
                 .addGap(35, 35, 35))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 350, 550));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 350, 580));
 
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazimg/estadisticas1.png"))); // NOI18N
         jButton11.setBorderPainted(false);
@@ -1276,12 +1286,10 @@ public class maininterfaz extends javax.swing.JFrame {
         getContentPane().add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 40, 40));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("DÍA");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 30, 30));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("DÍA");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 40, 30));
 
@@ -1311,7 +1319,6 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel20.setBackground(new java.awt.Color(0, 0, 0));
         jLabel20.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("PRODUCTOS:");
         jLabel20.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1467,7 +1474,6 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel25.setBackground(new java.awt.Color(0, 0, 0));
         jLabel25.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(0, 0, 0));
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel25.setText("PRODUCTORES:");
         jLabel25.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1777,7 +1783,6 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel31.setBackground(new java.awt.Color(0, 0, 0));
         jLabel31.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(0, 0, 0));
         jLabel31.setText("GERENTE:");
 
         jTextField23.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
@@ -1789,29 +1794,24 @@ public class maininterfaz extends javax.swing.JFrame {
 
         jLabel32.setBackground(new java.awt.Color(0, 0, 0));
         jLabel32.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(0, 0, 0));
         jLabel32.setText("JEFE:");
 
         jTextField24.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 
         jLabel36.setBackground(new java.awt.Color(0, 0, 0));
         jLabel36.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(0, 0, 0));
         jLabel36.setText("GASTOS - SALARIOS:");
 
         jLabel37.setBackground(new java.awt.Color(0, 0, 0));
         jLabel37.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(0, 0, 0));
         jLabel37.setText("SALARIO JEFE:");
 
         jLabel38.setBackground(new java.awt.Color(0, 0, 0));
         jLabel38.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel38.setForeground(new java.awt.Color(0, 0, 0));
         jLabel38.setText("CANTIDAD VENDIDA:");
 
         jLabel39.setBackground(new java.awt.Color(0, 0, 0));
         jLabel39.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel39.setForeground(new java.awt.Color(0, 0, 0));
         jLabel39.setText("GANANCIAS:");
 
         jTextField29.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
@@ -1905,7 +1905,10 @@ public class maininterfaz extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel15Layout.createSequentialGroup()
+                                        .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel15Layout.createSequentialGroup()
                                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel36)
@@ -1976,12 +1979,13 @@ public class maininterfaz extends javax.swing.JFrame {
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(jTextField23, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                        .addComponent(jTextField23))
                     .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1997,7 +2001,7 @@ public class maininterfaz extends javax.swing.JFrame {
                 .addGap(32, 32, 32))
         );
 
-        getContentPane().add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 340, 550));
+        getContentPane().add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 340, 580));
 
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -2024,10 +2028,16 @@ public class maininterfaz extends javax.swing.JFrame {
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
         start=true;
+        Día dia_actual= new Día(0);
+        dia_actual.start();
         Jefe jefe = new Jefe(ci_john, mutex_jefe, 0);
         Jefe jefe_ale= new Jefe(ci_ale, mutex_jefe_ale, 1);
+        Gerente gerente= new Gerente(mutex_jefe, 0);
+        Gerente gerente_ale= new Gerente(mutex_jefe_ale, 1);
         jefe.start();
         jefe_ale.start();
+        gerente.start();
+        gerente_ale.start();
         
         //Arrays
         ////John
@@ -2055,11 +2065,11 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         
-        for (int i = 0; i < array_ensam.length; i++) {
-            if (array_ensam[i]!=null) {
-                array_ensam[i].start();
-            }
-        }
+//        for (int i = 0; i < array_ensam.length; i++) {
+//            if (array_ensam[i]!=null) {
+//                array_ensam[i].start();
+//            }
+//        }
         
         
 //        //Aqui con txt se deberían llenar las colas para luego más abajo con el size de las colas representarlo en los jTextfields
@@ -2089,11 +2099,11 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         
-        for (int i = 0; i < array_ensam_ale.length; i++) {
-            if (array_ensam_ale[i]!=null) {
-                array_ensam_ale[i].start();
-            }
-        }
+//        for (int i = 0; i < array_ensam_ale.length; i++) {
+//            if (array_ensam_ale[i]!=null) {
+//                array_ensam_ale[i].start();
+//            }
+//        }
         
 //        while (dias_despacho!=0) {            
 //            System.out.println("Dia: " + dias_despacho);
@@ -2151,7 +2161,7 @@ public class maininterfaz extends javax.swing.JFrame {
         int pin=1;
         if (start==false) {
             
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0, duracion_1);
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0);
             for (int i = 0; i < array_ensam.length; i++) {
                 if (array_ensam[i]==null) {
                     array_ensam[i]=hilo_ensam;
@@ -2160,7 +2170,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0, duracion_1);
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara, espacio_camara, mutex_camara, dato_pantalla, espacio_pantalla, mutex_pantalla, dato_boton, espacio_boton, mutex_boton, dato_pin, espacio_pin, mutex_pin, mutex_ensam, camara, pantalla, boton, pin, 0);
             for (int i = 0; i < array_ensam.length; i++) {
                 if (array_ensam[i]==null) {
                     array_ensam[i]=hilo_ensam;
@@ -2225,7 +2235,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField8.setText(valor);
         if (start==false) {
             
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0, duracion_1);
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0);
             for (int i = 0; i < p_pin.length; i++) {
                 if (p_pin[i]==null) {
                     p_pin[i]=hilo_pin;
@@ -2234,7 +2244,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0, duracion_1);
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin, dato_pin, espacio_pin, 0);
             for (int i = 0; i < p_pin.length; i++) {
                 if (p_pin[i]==null) {
                     p_pin[i]=hilo_pin;
@@ -2335,7 +2345,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField7.setText(valor);
         if (start==false) {
             
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0, duracion_1);
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0);
             for (int i = 0; i < p_camara.length; i++) {
                 if (p_camara[i]==null) {
                     p_camara[i]=hilo_camara;
@@ -2344,7 +2354,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0, duracion_1);
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara, dato_camara, espacio_camara, dia_john, 0);
             for (int i = 0; i < p_camara.length; i++) {
                 if (p_camara[i]==null) {
                     p_camara[i]=hilo_camara;
@@ -2371,7 +2381,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField6.setText(valor);
         if (start==false) {
             
-            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0, duracion_1);
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0);
             for (int i = 0; i < p_botones.length; i++) {
                 if (p_botones[i]==null) {
                     p_botones[i]=hilo_boton;
@@ -2380,7 +2390,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0, duracion_1);
+            Productor_botones hilo_boton= new Productor_botones(mutex_boton, dato_boton, espacio_boton, produccion_boton, 0);
             for (int i = 0; i < p_botones.length; i++) {
                 if (p_botones[i]==null) {
                     p_botones[i]=hilo_boton;
@@ -2516,7 +2526,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField18.setText(valor);
         if (start==false) {
             
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1, duracion_2);
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1);
             for (int i = 0; i < p_pantalla_ale.length; i++) {
                 if (p_pantalla_ale[i]==null) {
                     p_pantalla_ale[i]=hilo_pantalla;
@@ -2525,7 +2535,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1, duracion_2);
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla_ale, dato_pantalla_ale, espacio_pantalla_ale, 1);
             for (int i = 0; i < p_pantalla_ale.length; i++) {
                 if (p_pantalla_ale[i]==null) {
                     p_pantalla_ale[i]=hilo_pantalla;
@@ -2622,7 +2632,7 @@ public class maininterfaz extends javax.swing.JFrame {
         int produccion_ale=2;
         if (start==false) {
             
-            Productor_botones hilo_botones= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_ale, 1, duracion_2);
+            Productor_botones hilo_botones= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_ale, 1);
             for (int i = 0; i < p_botones_ale.length; i++) {
                 if (p_botones_ale[i]==null) {
                     p_botones_ale[i]=hilo_botones;
@@ -2631,7 +2641,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_botones hilo_botones= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_ale, 1, duracion_2);
+            Productor_botones hilo_botones= new Productor_botones(mutex_boton_ale, dato_boton_ale, espacio_boton_ale, produccion_ale, 1);
             for (int i = 0; i < p_botones_ale.length; i++) {
                 if (p_botones_ale[i]==null) {
                     p_botones_ale[i]=hilo_botones;
@@ -2658,7 +2668,7 @@ public class maininterfaz extends javax.swing.JFrame {
         int dia_ale=3;
         if (start==false) {
             
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale , 1, duracion_2);
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale , 1);
             for (int i = 0; i < p_camara_ale.length; i++) {
                 if (p_camara_ale[i]==null) {
                     p_camara_ale[i]=hilo_camara;
@@ -2667,7 +2677,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale , 1, duracion_2);
+            Productor_camara hilo_camara= new Productor_camara(mutex_camara_ale, dato_camara_ale, espacio_camara_ale, dia_ale , 1);
             for (int i = 0; i < p_camara_ale.length; i++) {
                 if (p_camara_ale[i]==null) {
                     p_camara_ale[i]=hilo_camara;
@@ -2768,7 +2778,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField21.setText(valor);
         if (start==false) {
             
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1, duracion_2);
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1);
             for (int i = 0; i < p_pin_ale.length; i++) {
                 if (p_pin_ale[i]==null) {
                     p_pin_ale[i]=hilo_pin;
@@ -2777,7 +2787,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1, duracion_2);
+            Productor_pin hilo_pin= new Productor_pin(mutex_pin_ale, dato_pin_ale, espacio_pin_ale, 1);
             for (int i = 0; i < p_pin_ale.length; i++) {
                 if (p_pin_ale[i]==null) {
                     p_pin_ale[i]=hilo_pin;
@@ -2844,7 +2854,7 @@ public class maininterfaz extends javax.swing.JFrame {
         int pin_ale=1;
         if (start==false) {
             
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1, duracion_2);
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1);
             for (int i = 0; i < array_ensam_ale.length; i++) {
                 if (array_ensam_ale[i]==null) {
                     array_ensam_ale[i]=hilo_ensam;
@@ -2853,7 +2863,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1, duracion_2);
+            Ensamblador hilo_ensam= new Ensamblador(dato_camara_ale, espacio_camara_ale, mutex_camara_ale, dato_pantalla_ale, espacio_pantalla_ale, mutex_pantalla_ale, dato_boton_ale, espacio_boton_ale, mutex_boton_ale, dato_pin_ale, espacio_pin_ale, mutex_pin_ale, mutex_ensam_ale, camara_ale, pantalla_ale, boton_ale, pin_ale, 1);
             for (int i = 0; i < array_ensam_ale.length; i++) {
                 if (array_ensam_ale[i]==null) {
                     array_ensam_ale[i]=hilo_ensam;
@@ -2884,7 +2894,7 @@ public class maininterfaz extends javax.swing.JFrame {
         jTextField5.setText(valor);
         if (start==false) {
             
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0, duracion_1);
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0);
             for (int i = 0; i < p_pantalla.length; i++) {
                 if (p_pantalla[i]==null) {
                     p_pantalla[i]=hilo_pantalla;
@@ -2893,7 +2903,7 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         else{
-            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0, duracion_1);
+            Productor_pantalla hilo_pantalla= new Productor_pantalla(mutex_pantalla, dato_pantalla, espacio_pantalla, 0);
             for (int i = 0; i < p_pantalla.length; i++) {
                 if (p_pantalla[i]==null) {
                     p_pantalla[i]=hilo_pantalla;
@@ -3080,6 +3090,8 @@ public class maininterfaz extends javax.swing.JFrame {
     public static javax.swing.JTextField jTextField1;
     public static javax.swing.JTextField jTextField10;
     public static javax.swing.JTextField jTextField11;
+    public static javax.swing.JTextField jTextField12;
+    public static javax.swing.JTextField jTextField13;
     public static javax.swing.JTextField jTextField14;
     public static javax.swing.JTextField jTextField15;
     public static javax.swing.JTextField jTextField16;

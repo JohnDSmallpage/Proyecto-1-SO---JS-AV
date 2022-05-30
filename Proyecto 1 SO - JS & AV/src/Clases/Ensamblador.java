@@ -37,9 +37,8 @@ public class Ensamblador extends Thread {
         int boton;
         int pin;
         int id;
-        long duracion;
 
-    public Ensamblador(Semaphore existe_dato_camara, Semaphore existe_espacio_camara, Semaphore mutex_camara, Semaphore existe_dato_pantalla, Semaphore existe_espacio_pantalla, Semaphore mutex_pantalla, Semaphore existe_dato_boton, Semaphore existe_espacio_boton, Semaphore mutex_boton, Semaphore existe_dato_pin, Semaphore existe_espacio_pin, Semaphore mutex_pin, Semaphore mutex_ensam, int camara, int pantalla, int boton, int pin, int id, long duracion) {
+    public Ensamblador(Semaphore existe_dato_camara, Semaphore existe_espacio_camara, Semaphore mutex_camara, Semaphore existe_dato_pantalla, Semaphore existe_espacio_pantalla, Semaphore mutex_pantalla, Semaphore existe_dato_boton, Semaphore existe_espacio_boton, Semaphore mutex_boton, Semaphore existe_dato_pin, Semaphore existe_espacio_pin, Semaphore mutex_pin, Semaphore mutex_ensam, int camara, int pantalla, int boton, int pin, int id) {
         this.existe_dato_camara = existe_dato_camara;
         this.existe_espacio_camara = existe_espacio_camara;
         this.mutex_camara = mutex_camara;
@@ -58,7 +57,7 @@ public class Ensamblador extends Thread {
         this.boton=boton;
         this.pin=pin;
         this.id=id;
-        this.duracion=duracion;
+
     }
     
 
@@ -67,7 +66,7 @@ public class Ensamblador extends Thread {
         while (maininterfaz.dias_despacho>0 || maininterfaz.dias_despacho_ale>0) {
                 try {
                     
-                    Thread.sleep(duracion*2); 
+                    Thread.sleep(maininterfaz.dia_duracion*2); 
                     existe_dato_boton.acquire(boton);
                     existe_dato_camara.acquire(camara);
                     existe_dato_pantalla.acquire(pantalla);

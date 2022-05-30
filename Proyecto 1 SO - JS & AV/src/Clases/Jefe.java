@@ -18,25 +18,33 @@ public class Jefe extends Thread {
     Semaphore mutex_calendario;
     int cedula;
     int id;
+    int tiempo_juego;
     
     public Jefe(int cedula, Semaphore mutex_calendario, int id){
         this.cedula=cedula;
         this.mutex_calendario= mutex_calendario;
         this.id=id;
+        this.tiempo_juego= tiempo_juego;
     }
     @Override
     public void run(){
         double duracion_jefe=((cedula+1)/24f)*maininterfaz.dia_duracion;
         duracion_jefe=Math.round(duracion_jefe);
         long duracion_jefe_l= (new Double(duracion_jefe)).longValue();
+        long tiempo_restante= maininterfaz.dia_duracion-duracion_jefe_l;
+        int horas_rest= 24-(cedula+1);
+        double hora= (double)tiempo_restante/horas_rest;
+        double clash= (double)((15+cedula)*hora)/60;
+        long duracion_clash= (new Double(clash)).longValue();
+        
         
         while (maininterfaz.dias_despacho>0 || maininterfaz.dias_despacho_ale>0 ) {   
             
             
             
           try {
-          
-            Thread.sleep(maininterfaz.dia_duracion + duracion_jefe_l);
+              System.out.println("NUEVO DÍA");
+            Thread.sleep(duracion_jefe_l);
             mutex_calendario.acquire();
           
                  
@@ -97,9 +105,15 @@ public class Jefe extends Thread {
                      }
                      
                      maininterfaz.salario_jefe+=7;
+                     maininterfaz.jTextField36.setText(Integer.toString(maininterfaz.salario_jefe));
                      maininterfaz.salario_gerente+=180;
+                     maininterfaz.salario_total_1=maininterfaz.salario_boton + maininterfaz.salario_camara + maininterfaz.salario_pantalla + maininterfaz.salario_pin + maininterfaz.salario_jefe + maininterfaz.salario_gerente + maininterfaz.salario_ensam;
+                     maininterfaz.jTextField35.setText(Integer.toString(maininterfaz.salario_total_1));
                          
                          
+    
+                     
+                     
                      }
                      
                      
@@ -108,6 +122,7 @@ public class Jefe extends Thread {
 //                     
                      if (maininterfaz.dias_despacho_ale!=0) {
                       maininterfaz.dias_despacho_ale--;
+                      maininterfaz.jTextField26.setText(Integer.toString(maininterfaz.dias_despacho_ale));
                      for (int i = 0; i < maininterfaz.p_botones_ale.length; i++) {
                          if (maininterfaz.p_botones_ale[i]!=null) {
                              maininterfaz.salario_boton_ale+=4;
@@ -152,35 +167,82 @@ public class Jefe extends Thread {
                      }
                      
                      maininterfaz.salario_jefe_ale+=7;
-                     maininterfaz.salario_gerente_ale+=180;   
+                     maininterfaz.jTextField30.setText(Integer.toString(maininterfaz.salario_jefe_ale));
+                     maininterfaz.salario_gerente_ale+=180;
+                     
+                     maininterfaz.salario_total_2=maininterfaz.salario_boton_ale + maininterfaz.salario_camara_ale + maininterfaz.salario_pantalla_ale + maininterfaz.salario_pin_ale + maininterfaz.salario_jefe_ale + maininterfaz.salario_gerente_ale + maininterfaz.salario_ensam_ale;
+                     maininterfaz.jTextField29.setText(Integer.toString(maininterfaz.salario_total_2));
+                     
+                     maininterfaz.jugando_ale=true;
+                      maininterfaz.jTextField24.setText("Clash Royale");
+                      Thread.sleep(duracion_clash);
+                      maininterfaz.jugando_ale=false;
+                      maininterfaz.jTextField24.setText("Trabajando");
+                      if (maininterfaz.dia_pasado==false) {
+                          break;
+                      }
                      }       
                  }
-                 
-                 
               
               mutex_calendario.release();
-              System.out.println("DIA : " + maininterfaz.dias_despacho);
-              System.out.println("Salario botones: " + maininterfaz.salario_boton);
               
-              System.out.println("Salario camara: " + maininterfaz.salario_camara);
-              System.out.println("Salario pantalla: " + maininterfaz.salario_pantalla);
-              System.out.println("Salario pin: " + maininterfaz.salario_pin);
-              System.out.println("Salario gerente: " + maininterfaz.salario_gerente);
-              System.out.println("Salario jefe: " + maininterfaz.salario_jefe);
-              System.out.println("Salario ensamblador john: " + maininterfaz.salario_ensam);
-              System.out.println("");
+              int duracion= maininterfaz.dia_duracion;
+              long restante= duracion-duracion_jefe_l;
               
-              System.out.println("DIA ale: " + maininterfaz.dias_despacho_ale);
-              
-               System.out.println("Salario botones: " + maininterfaz.salario_boton_ale);
-              System.out.println("Salario camara: " + maininterfaz.salario_camara_ale);
-              System.out.println("Salario pantalla: " + maininterfaz.salario_pantalla_ale);
-              System.out.println("Salario pin: " + maininterfaz.salario_pin_ale);
-              System.out.println("Salario gerente: " + maininterfaz.salario_gerente_ale);
-              System.out.println("Salario jefe: " + maininterfaz.salario_jefe_ale);
-              System.out.println("Salario ensamblador ale: " + maininterfaz.salario_ensam_ale);
-              System.out.println("");
+              while (restante>0 && (maininterfaz.dias_despacho>0 || maininterfaz.dias_despacho_ale>0)) {    
+                  if (id==0) {
+                     maininterfaz.jTextField34.setText("Clash Royale");
+                  maininterfaz.jugando=true;
+                  Thread.sleep(duracion_clash);
+                  restante-=duracion_clash;
+                  maininterfaz.jugando=false;
+                  maininterfaz.jTextField34.setText("Trabajando");
+                  Thread.sleep(duracion_clash);
+                  System.out.println("");
+                  
+                  restante-=duracion_clash; 
+                  }
+                  else{
+                      maininterfaz.jTextField24.setText("Clash Royale");
+                  maininterfaz.jugando_ale=true;
+                  Thread.sleep(duracion_clash);
+                  restante-=duracion_clash;
+                  
+                  maininterfaz.jTextField24.setText("Trabajando");
+                  maininterfaz.jugando_ale=false;
+                  Thread.sleep(duracion_clash);
+                  System.out.println("");
+                  
+                  restante-=duracion_clash; 
+                  }
+                  
               }
+              
+                   
+              }
+//              System.out.println("DIA : " + maininterfaz.dias_despacho);
+//              System.out.println("Salario botones: " + maininterfaz.salario_boton);
+//              
+//              System.out.println("Salario camara: " + maininterfaz.salario_camara);
+//              System.out.println("Salario pantalla: " + maininterfaz.salario_pantalla);
+//              System.out.println("Salario pin: " + maininterfaz.salario_pin);
+//              System.out.println("Salario gerente: " + maininterfaz.salario_gerente);
+//              System.out.println("Salario jefe: " + maininterfaz.salario_jefe);
+//              System.out.println("Salario ensamblador john: " + maininterfaz.salario_ensam);
+//              System.out.println("");
+//              
+//              System.out.println("DIA ale: " + maininterfaz.dias_despacho_ale);
+//              
+//               System.out.println("Salario botones: " + maininterfaz.salario_boton_ale);
+//              System.out.println("Salario camara: " + maininterfaz.salario_camara_ale);
+//              System.out.println("Salario pantalla: " + maininterfaz.salario_pantalla_ale);
+//              System.out.println("Salario pin: " + maininterfaz.salario_pin_ale);
+//              System.out.println("Salario gerente: " + maininterfaz.salario_gerente_ale);
+//              System.out.println("Salario jefe: " + maininterfaz.salario_jefe_ale);
+//              System.out.println("Salario ensamblador ale: " + maininterfaz.salario_ensam_ale);
+//              System.out.println("");
+              
+          
             
               
             
@@ -199,15 +261,7 @@ public class Jefe extends Thread {
 //              
            
         }
-        if (maininterfaz.dias_despacho==0 && maininterfaz.dias_despacho_ale==0) {
-            if (maininterfaz.dias_despacho==0) {
-            int salario_total=maininterfaz.salario_boton + maininterfaz.salario_camara + maininterfaz.salario_pantalla + maininterfaz.salario_pin + maininterfaz.salario_jefe + maininterfaz.salario_gerente + maininterfaz.salario_ensam;
-            System.out.println("Gasto de la planta 1 en salarios: " + salario_total);
-                System.out.println("");
-            int salario_total_ale=maininterfaz.salario_boton_ale + maininterfaz.salario_camara_ale + maininterfaz.salario_pantalla_ale + maininterfaz.salario_pin_ale + maininterfaz.salario_jefe_ale + maininterfaz.salario_gerente_ale + maininterfaz.salario_ensam_ale;
-            System.out.println("Gasto de la planta 2 en salarios: " + salario_total_ale);
-        }
-        }
+        
         
     }
     

@@ -67,10 +67,11 @@ public class configuracion extends javax.swing.JFrame {
 
         jLabel6.setBackground(new java.awt.Color(0, 0, 0));
         jLabel6.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("TIEMPO QUE DURA UN DÍA  (EN SEGUNDOS):");
 
         jTextField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.setText("1");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -93,7 +94,7 @@ public class configuracion extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField1))
                 .addContainerGap())
         );
@@ -136,10 +137,11 @@ public class configuracion extends javax.swing.JFrame {
 
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
         jLabel7.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("CANTIDAD DE DÍAS ENTRE DESPACHOS:");
 
         jTextField2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField2.setText("30");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -155,7 +157,7 @@ public class configuracion extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addGap(33, 33, 33)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,10 +175,11 @@ public class configuracion extends javax.swing.JFrame {
 
         jLabel8.setBackground(new java.awt.Color(0, 0, 0));
         jLabel8.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("ALMACÉN PANTALLAS:");
 
         jTextField3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField3.setText("40");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -210,10 +213,11 @@ public class configuracion extends javax.swing.JFrame {
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
         jLabel9.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("ALMACÉN BOTONES:");
 
         jTextField4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField4.setText("45");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -247,10 +251,11 @@ public class configuracion extends javax.swing.JFrame {
 
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
         jLabel10.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("ALMACÉN PINES DE CARGA:");
 
         jTextField5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField5.setText("15");
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
@@ -284,10 +289,11 @@ public class configuracion extends javax.swing.JFrame {
 
         jLabel11.setBackground(new java.awt.Color(0, 0, 0));
         jLabel11.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("ALMACÉN CÁMARAS:");
 
         jTextField6.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextField6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField6.setText("20");
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
@@ -342,14 +348,12 @@ public class configuracion extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 800, 30));
 
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("ALMACENAMIENTO INFINITO");
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 250, 40));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazimg/configuraciones2.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 80, 80));
 
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("ATRÁS");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -358,7 +362,6 @@ public class configuracion extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 580, 150, 40));
 
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("GUARDAR");
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 580, 150, 40));
 

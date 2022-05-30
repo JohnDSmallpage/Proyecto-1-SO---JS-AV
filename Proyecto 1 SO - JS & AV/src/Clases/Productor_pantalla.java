@@ -23,14 +23,13 @@ public class Productor_pantalla extends Thread {
     Semaphore dato;
     Semaphore espacio;
     int id;
-    long duracion;
+    
 
-    public Productor_pantalla(Semaphore mutex, Semaphore dato, Semaphore espacio, int id, long duracion) {
+    public Productor_pantalla(Semaphore mutex, Semaphore dato, Semaphore espacio, int id) {
         this.mutex = mutex;
         this.dato = dato;
         this.espacio = espacio;
         this.id = id;
-        this.duracion=duracion;
 
     }
 
@@ -38,7 +37,7 @@ public class Productor_pantalla extends Thread {
     public void run() {
         while (maininterfaz.dias_despacho > 0 || maininterfaz.dias_despacho_ale>0) {
             try {
-                double dormido = duracion / 2;
+                double dormido = maininterfaz.dia_duracion / 2;
                 dormido = Math.round(dormido);
                 long l_dormido = (new Double(dormido)).longValue();
 
