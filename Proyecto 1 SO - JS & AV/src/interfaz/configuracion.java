@@ -446,15 +446,19 @@ public class configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if ((jTextField3.getText() == "INFINITO") && (jTextField4.getText() == "INFINITO") && (jTextField5.getText() == "INFINITO") && (jTextField6.getText() == "INFINITO")){
+        System.out.println(jTextField3.getText());
+        if ((jTextField3.getText().equals("INFINITO")) && (jTextField4.getText().equals("INFINITO")) && (jTextField5.getText().equals("INFINITO")) && (jTextField6.getText().equals("INFINITO"))){
+            info[0] = Integer.toString(Integer.parseInt(jTextField1.getText())*1000);
+            info[1] = jTextField2.getText();
             info[2] = "99000000";
             info[3] = "99000000";
             info[4] = "99000000";
             info[5] = "99000000";
             txt.GuardarCSV(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], info[12], info[13], info[14], info[15]);
+            guardado = true;
             return;
         }
-        
+        else{
         try{
             
         int numero;
@@ -474,20 +478,20 @@ public class configuracion extends javax.swing.JFrame {
         info[5] = jTextField6.getText();
         
         
-        if (info[2].equals("INFINITO") || info[3].equals("INFINITO") || info[4].equals("INFINITO") || info[5].equals("INFINITO")){
-            info[2] = "99000000";
-            info[3] = "99000000";
-            info[4] = "99000000";
-            info[5] = "99000000";
-        }
-        
-        if(infinito){
-            info[2] = "99000000";
-            info[3] = "99000000";
-            info[4] = "99000000";
-            info[5] = "99000000";
-        }
-        
+//        if (info[2].equals("INFINITO") || info[3].equals("INFINITO") || info[4].equals("INFINITO") || info[5].equals("INFINITO")){
+//            info[2] = "99000000";
+//            info[3] = "99000000";
+//            info[4] = "99000000";
+//            info[5] = "99000000";
+//        }
+//        
+//        if(infinito){
+//            info[2] = "99000000";
+//            info[3] = "99000000";
+//            info[4] = "99000000";
+//            info[5] = "99000000";
+//        }
+//        
         txt.GuardarCSV(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], info[12], info[13], info[14], info[15]);
         JOptionPane.showMessageDialog(null,"Guardado con Éxito");
         guardado = true;}       
@@ -495,6 +499,7 @@ public class configuracion extends javax.swing.JFrame {
         catch(Exception e){
             JOptionPane.showMessageDialog(null,"ERROR, en cualquiera de las casillas solo deben ir números enteros");
             return;
+        }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
