@@ -1,11 +1,11 @@
 --TIEMPO--
-duracion_dia,1000
+duracion_dia,4000
 dia_despacho,30
 --ALMACEN--
-pantallas_alm,40
-botones_alm,45
-pincarga_alm,15
-camara_alm,20
+pantallas_alm,55
+botones_alm,67
+pincarga_alm,45
+camara_alm,89
 --PRODUCTORES JOHN--
 pantallas_j,1
 botones_j,1

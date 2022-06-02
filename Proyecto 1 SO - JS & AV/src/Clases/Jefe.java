@@ -43,7 +43,6 @@ public class Jefe extends Thread {
             
             
           try {
-              System.out.println("NUEVO DÍA");
             Thread.sleep(duracion_jefe_l);
             mutex_calendario.acquire();
           
@@ -203,13 +202,14 @@ public class Jefe extends Thread {
                   restante-=duracion_clash; 
                   }
                   else{
-                      maininterfaz.jTextField24.setText("Clash Royale");
+                  maininterfaz.jTextField24.setText("Clash Royale");
                   maininterfaz.jugando_ale=true;
                   Thread.sleep(duracion_clash);
                   restante-=duracion_clash;
                   
-                  maininterfaz.jTextField24.setText("Trabajando");
+                  
                   maininterfaz.jugando_ale=false;
+                  maininterfaz.jTextField24.setText("Trabajando");
                   Thread.sleep(duracion_clash);
                   System.out.println("");
                   

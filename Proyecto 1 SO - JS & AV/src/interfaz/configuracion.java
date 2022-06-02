@@ -5,12 +5,20 @@
  */
 package interfaz;
 
+import Clases.Funciones;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aleja
  */
 public class configuracion extends javax.swing.JFrame {
-
+    public Funciones txt;
+    public String info[];
+    public Boolean guardado;
+    public Boolean infinito;
+    
+    
     /**
      * Creates new form configuracion
      */
@@ -20,6 +28,32 @@ public class configuracion extends javax.swing.JFrame {
         this.setVisible(true);
         this.setSize(800,700);
         this.setLocationRelativeTo(null);
+        this.txt = new Funciones();
+        this.info = txt.leerCSV();
+        this.guardado = false;
+        this.infinito = false;
+        
+        if (info[2].equals("99000000")){
+            jTextField1.setText(Integer.toString((Integer.parseInt(info[0])/1000)));
+            jTextField2.setText(info[1]);
+            jTextField3.setText("INFINITO");
+            jTextField4.setText("INFINITO");
+            jTextField5.setText("INFINITO");
+            jTextField6.setText("INFINITO");
+        } else {
+            jTextField1.setText(Integer.toString((Integer.parseInt(info[0])/1000)));
+            jTextField2.setText(info[1]);
+            jTextField3.setText(info[2]);
+            jTextField4.setText(info[3]);
+            jTextField5.setText(info[4]);
+            jTextField6.setText(info[5]);
+        }
+        
+        
+        
+        
+        
+        
     }
 
     /**
@@ -71,7 +105,6 @@ public class configuracion extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("1");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -141,7 +174,6 @@ public class configuracion extends javax.swing.JFrame {
 
         jTextField2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("30");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -179,7 +211,6 @@ public class configuracion extends javax.swing.JFrame {
 
         jTextField3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField3.setText("40");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -193,8 +224,8 @@ public class configuracion extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -217,7 +248,6 @@ public class configuracion extends javax.swing.JFrame {
 
         jTextField4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField4.setText("45");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -231,8 +261,8 @@ public class configuracion extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -250,12 +280,11 @@ public class configuracion extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel10.setFont(new java.awt.Font("Franklin Gothic Book", 1, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Franklin Gothic Book", 1, 10)); // NOI18N
         jLabel10.setText("ALMACÉN PINES DE CARGA:");
 
         jTextField5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField5.setText("15");
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
@@ -267,10 +296,10 @@ public class configuracion extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(7, Short.MAX_VALUE)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -293,7 +322,6 @@ public class configuracion extends javax.swing.JFrame {
 
         jTextField6.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextField6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField6.setText("20");
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
@@ -307,8 +335,8 @@ public class configuracion extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -349,6 +377,11 @@ public class configuracion extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 800, 30));
 
         jButton1.setText("ALMACENAMIENTO INFINITO");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 250, 40));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazimg/configuraciones2.png"))); // NOI18N
@@ -363,6 +396,11 @@ public class configuracion extends javax.swing.JFrame {
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 580, 150, 40));
 
         jButton3.setText("GUARDAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 580, 150, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazimg/fondo_sony.png"))); // NOI18N
@@ -396,10 +434,79 @@ public class configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            maininterfaz maininterfaz = new maininterfaz();
-            maininterfaz.setVisible(true);
-            this.dispose();        // TODO add your handling code here:
+            if (guardado == false){
+                JOptionPane.showMessageDialog(null, "Por Favor, guarde los cambios");
+                return;
+            } else {
+                maininterfaz maininterfaz = new maininterfaz();
+                maininterfaz.setVisible(true);
+                this.dispose(); 
+            }
+            
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if ((jTextField3.getText() == "INFINITO") && (jTextField4.getText() == "INFINITO") && (jTextField5.getText() == "INFINITO") && (jTextField6.getText() == "INFINITO")){
+            info[2] = "99000000";
+            info[3] = "99000000";
+            info[4] = "99000000";
+            info[5] = "99000000";
+            txt.GuardarCSV(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], info[12], info[13], info[14], info[15]);
+            return;
+        }
+        
+        try{
+            
+        int numero;
+        
+        numero = Integer.parseInt(Integer.toString(Integer.parseInt(jTextField1.getText())*1000));
+        numero = Integer.parseInt(jTextField2.getText());
+        numero = Integer.parseInt(jTextField3.getText());
+        numero = Integer.parseInt(jTextField4.getText());
+        numero = Integer.parseInt(jTextField5.getText());
+        numero = Integer.parseInt(jTextField6.getText());
+        
+        info[0] = Integer.toString(Integer.parseInt(jTextField1.getText())*1000);
+        info[1] = jTextField2.getText();
+        info[2] = jTextField3.getText();
+        info[3] = jTextField4.getText();
+        info[4] = jTextField5.getText();
+        info[5] = jTextField6.getText();
+        
+        
+        if (info[2].equals("INFINITO") || info[3].equals("INFINITO") || info[4].equals("INFINITO") || info[5].equals("INFINITO")){
+            info[2] = "99000000";
+            info[3] = "99000000";
+            info[4] = "99000000";
+            info[5] = "99000000";
+        }
+        
+        if(infinito){
+            info[2] = "99000000";
+            info[3] = "99000000";
+            info[4] = "99000000";
+            info[5] = "99000000";
+        }
+        
+        txt.GuardarCSV(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], info[12], info[13], info[14], info[15]);
+        JOptionPane.showMessageDialog(null,"Guardado con Éxito");
+        guardado = true;}       
+        
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,"ERROR, en cualquiera de las casillas solo deben ir números enteros");
+            return;
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        infinito = true;
+        
+        jTextField3.setText("INFINITO");
+        jTextField4.setText("INFINITO");
+        jTextField5.setText("INFINITO");
+        jTextField6.setText("INFINITO");
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

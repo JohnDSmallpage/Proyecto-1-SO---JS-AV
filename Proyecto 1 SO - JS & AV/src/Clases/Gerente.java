@@ -44,21 +44,19 @@ public class Gerente extends Thread {
             int random= num_aleatorio.nextInt(l_superior-l_inferior+1) + l_inferior;
             long periodo = (new Long(random)).longValue();
               
-//            long restante= maininterfaz.dia_duracion-periodo;
-//           
-//            
-//            mutex_calendario.acquire();
-//            
-//                if (id==0) {
-//                    maininterfaz.jTextField33.setText("Calendario");
-//                    Thread.sleep(restante); 
-//                }
-//                else{
-//                   maininterfaz.jTextField23.setText("Calendario");
-//                   Thread.sleep(restante); 
-//                }
-//                
-//            mutex_calendario.release();
+            long restante= maininterfaz.dia_duracion-periodo;
+           
+            
+            mutex_calendario.acquire();
+            
+                if (id==0) {
+                    Thread.sleep(restante); 
+                }
+                else{
+                   Thread.sleep(restante); 
+                }
+                
+            mutex_calendario.release();
             
             
             long periodo_real= periodo;
@@ -83,6 +81,9 @@ public class Gerente extends Thread {
                           maininterfaz.jTextField12.setText(Integer.toString(maininterfaz.contador_jefe));
                           maininterfaz.jTextField33.setText("Atrapó al jefe");
                       }
+                      else {
+                          maininterfaz.jTextField33.setText("Revisando Planta");
+                      }
                   }
                   else{
                        Thread.sleep(sorpresa);
@@ -93,13 +94,29 @@ public class Gerente extends Thread {
                           maininterfaz.jTextField13.setText(Integer.toString(maininterfaz.contador_jefe_ale));
                           maininterfaz.jTextField23.setText("Atrapó al jefe");
                       }
+                       else {
+                          maininterfaz.jTextField23.setText("Revisando Planta");
+                      }
                   }
                   random= num_aleatorio.nextInt(l_superior-l_inferior+1) + l_inferior;
                   periodo = new Long(random);
-                  periodo_real= periodo;
-                  System.out.println(periodo);
-                  
+                  periodo_real= periodo;                 
               }
+              
+              if (maininterfaz.dias_despacho == 0){
+                  maininterfaz.jTextField37.setText(maininterfaz.jTextField11.getText());
+                  
+                  int ganancias = (Integer.parseInt(maininterfaz.jTextField37.getText())*1050) - (maininterfaz.salario_total_1);
+                  maininterfaz.jTextField38.setText(Integer.toString(ganancias));
+              } 
+              
+              if (maininterfaz.dias_despacho_ale == 0){
+                 maininterfaz.jTextField31.setText(maininterfaz.jTextField25.getText());
+                  
+                  int ganancias = (Integer.parseInt(maininterfaz.jTextField31.getText())*1199) - (maininterfaz.salario_total_2);
+                  maininterfaz.jTextField32.setText(Integer.toString(ganancias)); 
+              }
+              
             
             
             

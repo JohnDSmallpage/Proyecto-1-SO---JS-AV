@@ -82,12 +82,14 @@ public class Ensamblador extends Thread {
                    maininterfaz.n_camara-=camara;
                    maininterfaz.n_pantallas-=pantalla;
                    maininterfaz.n_pin-=pin;
+                        System.out.println("jjjjjj");
                }
                     else if(id==1 && maininterfaz.dias_despacho_ale>0){
                    maininterfaz.n_botones_ale-=boton;
                    maininterfaz.n_camara_ale-=camara;
                    maininterfaz.n_pantallas_ale-=pantalla;
                    maininterfaz.n_pin_ale-=pin;
+                        System.out.println("aaaaa");
                }
                     
                     

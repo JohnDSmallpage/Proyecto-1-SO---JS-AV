@@ -400,8 +400,6 @@ public class maininterfaz extends javax.swing.JFrame {
             array_ensam_ale[i]=hilo_ensam;
             
         }
-
-        
        
     }
 
@@ -795,7 +793,7 @@ public class maininterfaz extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -2016,6 +2014,11 @@ public class maininterfaz extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazimg/salvar.png"))); // NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazimg/fondo_sony.png"))); // NOI18N
@@ -2065,11 +2068,11 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         
-//        for (int i = 0; i < array_ensam.length; i++) {
-//            if (array_ensam[i]!=null) {
-//                array_ensam[i].start();
-//            }
-//        }
+        for (int i = 0; i < array_ensam.length; i++) {
+            if (array_ensam[i]!=null) {
+                array_ensam[i].start();
+            }
+        }
         
         
 //        //Aqui con txt se deberían llenar las colas para luego más abajo con el size de las colas representarlo en los jTextfields
@@ -2099,11 +2102,11 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         
-//        for (int i = 0; i < array_ensam_ale.length; i++) {
-//            if (array_ensam_ale[i]!=null) {
-//                array_ensam_ale[i].start();
-//            }
-//        }
+        for (int i = 0; i < array_ensam_ale.length; i++) {
+            if (array_ensam_ale[i]!=null) {
+                array_ensam_ale[i].start();
+            }
+        }
         
 //        while (dias_despacho!=0) {            
 //            System.out.println("Dia: " + dias_despacho);
@@ -2115,8 +2118,6 @@ public class maininterfaz extends javax.swing.JFrame {
 //            System.out.println("Salario gerente: " + salario_gerente);
 //            System.out.println("");
 //        }
-        
-        
         
         
         
@@ -2140,7 +2141,7 @@ public class maininterfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField10ActionPerformed
 
     private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_jTextField11ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -2913,6 +2914,8 @@ public class maininterfaz extends javax.swing.JFrame {
             hilo_pantalla.start();
             
         }
+        
+        
     }//GEN-LAST:event_jButton24ActionPerformed
 
     private void jTextField26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField26ActionPerformed
@@ -2952,12 +2955,34 @@ public class maininterfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField36ActionPerformed
 
     private void jTextField37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField37ActionPerformed
-        // TODO add your handling code here:
+          // TODO add your handling code here:
     }//GEN-LAST:event_jTextField37ActionPerformed
 
     private void jTextField38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField38ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField38ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    if (dias_despacho != 0 || dias_despacho_ale != 0){
+        JOptionPane.showMessageDialog(null,"NO se puede guardar durante ejecución");
+        return;
+    } else {
+        info[6] = jTextField5.getText();
+        info[7] = jTextField6.getText();
+        info[8] = jTextField8.getText();
+        info[9] = jTextField7.getText();
+        info[10] = jTextField9.getText();
+        info[11] = jTextField18.getText();
+        info[12] = jTextField19.getText();
+        info[13] = jTextField21.getText();
+        info[14] = jTextField20.getText();
+        info[15] = jTextField22.getText();
+        
+        txt.GuardarCSV(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], info[12], info[13], info[14], info[15]);
+        JOptionPane.showMessageDialog(null,"Guardado con Éxito");
+        
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
