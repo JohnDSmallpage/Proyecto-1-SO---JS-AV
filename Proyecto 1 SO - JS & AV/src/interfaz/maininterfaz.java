@@ -85,7 +85,9 @@ public class maininterfaz extends javax.swing.JFrame {
     private static Semaphore mutex_jefe;
     private static Semaphore mutex_jefe_ale;
     public static Funciones txt;
+    public static Funciones_dash txt_dash;
     public static String info [];
+    public static String info_dash[];
     public static Productor_botones p_botones [];
     public static Productor_camara p_camara [];
     public static Productor_pantalla p_pantalla [];
@@ -119,13 +121,16 @@ public class maininterfaz extends javax.swing.JFrame {
     public static int contador_jefe;
     public static int contador_jefe_ale;
     
+    
     public maininterfaz() {
         initComponents();
         this.setResizable(false);
         this.setVisible(true);
         this.setSize(800,700);
         this.setLocationRelativeTo(null);
-        Funciones txt= new Funciones();
+        this.txt_dash = new Funciones_dash();
+        String info_dash [] = txt_dash.leerCSV();
+        this.txt= new Funciones();
         String info []= txt.leerCSV();
 
         //Se lee txt y se crea objeto txt
@@ -2979,7 +2984,11 @@ public class maininterfaz extends javax.swing.JFrame {
         info[15] = jTextField22.getText();
         
         txt.GuardarCSV(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], info[12], info[13], info[14], info[15]);
+        txt_dash.GuardarCSV(Integer.toString(maininterfaz.dias_despacho),  info[2], info[3], info[4],info[5], maininterfaz.jTextField5.getText(), maininterfaz.jTextField6.getText(), maininterfaz.jTextField8.getText(), maininterfaz.jTextField7.getText(), maininterfaz.jTextField9.getText(), maininterfaz.jTextField35.getText(), maininterfaz.jTextField38.getText(), maininterfaz.jTextField37.getText(), maininterfaz.jTextField18.getText(), maininterfaz.jTextField19.getText(), maininterfaz.jTextField21.getText(),maininterfaz.jTextField20.getText(),maininterfaz.jTextField22.getText(),maininterfaz.jTextField29.getText(),maininterfaz.jTextField32.getText(),maininterfaz.jTextField31.getText());
+        
         JOptionPane.showMessageDialog(null,"Guardado con Éxito");
+        
+
         
     }
     }//GEN-LAST:event_jButton1ActionPerformed

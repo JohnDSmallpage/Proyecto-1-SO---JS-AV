@@ -5,22 +5,37 @@
  */
 package interfaz;
 
+import Clases.Funciones_dash;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author aleja
  */
 public class dash extends javax.swing.JFrame {
-
     /**
      * Creates new form dash
      */
+    
+    public JTable tabla;
+    public JScrollPane panelBarra;
+    
+    
+    
     public dash() {
         initComponents();
         this.setResizable(false);
         this.setVisible(true);
         this.setSize(800,700);
         this.setLocationRelativeTo(null);
+        //this.showTabla();
+        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,6 +49,8 @@ public class dash extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        LEYENDA = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,6 +73,15 @@ public class dash extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazimg/estadisticas2.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 80, 80));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 310, 190));
+
+        LEYENDA.setText("LEYENDA");
+        LEYENDA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LEYENDAActionPerformed(evt);
+            }
+        });
+        getContentPane().add(LEYENDA, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazimg/fondo_sony.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 700));
@@ -68,6 +94,45 @@ public class dash extends javax.swing.JFrame {
         maininterfaz.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void LEYENDAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LEYENDAActionPerformed
+        String[] linea = maininterfaz.txt_dash.leerCSV();
+        String[] texto = null;
+        
+        DefaultTableModel modelo;
+        modelo= new  DefaultTableModel( );
+        
+        tabla = new JTable(modelo);
+        
+        //panelBarra=new JScrollPane(tabla);
+        //getContentPane().add(panelBarra);
+        //panelBarra.reshape(80,50,300,300);
+        
+        
+        for (int i = 0; i < linea.length; i++) {
+            linea[i] = linea[i].replace("[","");
+            linea[i] = linea[i].replace("]","");
+            texto = linea[i].split(",");
+            modelo.addRow(texto);
+        }
+        
+        JFrame frame = new JFrame("LEYENDA");
+        frame.add(tabla);
+        
+        frame.setSize(400,400);
+        frame.setVisible(true);
+        
+        String[] columnNames = {"ID", "Nombre", "Edad"};
+        
+        //JTable table = new JTable(data,columnNames);
+        
+        
+        
+        
+        
+        //jPanel2.add(table);
+        //jPanel2.add(new JScrollPane(table));    // TODO add your handling code here:
+    }//GEN-LAST:event_LEYENDAActionPerformed
 
     /**
      * @param args the command line arguments
@@ -105,9 +170,11 @@ public class dash extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton LEYENDA;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

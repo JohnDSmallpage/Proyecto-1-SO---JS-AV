@@ -6,10 +6,16 @@ import com.csvreader.CsvWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.concurrent.Semaphore;
 import javax.swing.JOptionPane;
 
 public class Funciones_dash {
+    
+    FileWriter escribir;
+    PrintWriter linea;
         
     public String[] leerCSV() {
         String line;
@@ -30,8 +36,8 @@ public class Funciones_dash {
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, "ERROR AL LEER");
         }
-        String[] data = separarData(text.split("\n"));
-        return data;
+        //String[] data = separarData(text.split("\n"));
+        return text.split("\n");
     }
     
     public String[] separarData(String[] text) {
@@ -50,59 +56,40 @@ public class Funciones_dash {
         return text;
     }
     
-    public String[] generarData(String duracion_dia, String dia_despacho,
+    public String[] generarData(String dia_despacho,
             String pantallas_alm, String botones_alm, String pincarga_alm, String camara_alm,
-            String pantallas_j, String botones_j, String pincarga_j, String camara_j, String ensamblador_j,
-            String pantallas_a, String botones_a, String pincarga_a, String camara_a, String ensamblador_a) {
+            String pantallas_j, String botones_j, String pincarga_j, String camara_j, String ensamblador_j, String gastos_j, String ganancias_j, String telefonos_j,
+            String pantallas_a, String botones_a, String pincarga_a, String camara_a, String ensamblador_a, String gastos_a, String ganancias_a, String telefonos_a) {
         
-        String[] data = {
-            "--TIEMPO--",
-            "duracion_dia, " + duracion_dia,
-            "dia_despacho, " + dia_despacho,
-            "--ALMACEN--",
-            "pantallas_alm, " + pantallas_alm,
-            "botones_alm, " + botones_alm,
-            "pincarga_alm, " + pincarga_alm,
-            "camara_alm, " + camara_alm,
-            "--PRODUCTORES JOHN--",
-            "pantallas_j, " + pantallas_j,
-            "botones_j, " + botones_j,
-            "pincarga_j, " + pincarga_j,
-            "camara_j, " + camara_j,
-            "ensamblador_j, " + ensamblador_j,
-            "--PRODUCTORES ALE--",
-            "pantallas_a, " + pantallas_a,
-            "botones_a, " + botones_a,
-            "pincarga_a, " + pincarga_a,
-            "camara_a, " + camara_a,
-            "ensamblador_a, " + ensamblador_a,
-        };
+        String[] data = {dia_despacho, pantallas_alm, botones_alm, pincarga_alm, camara_alm, pantallas_j, botones_j, pincarga_j, camara_j, ensamblador_j, gastos_j, ganancias_j, telefonos_j, pantallas_a, botones_a, pincarga_a, camara_a, ensamblador_a, gastos_a, ganancias_a, telefonos_a};
         
         return data;
     }
     
-    public void GuardarCSV(String duracion_dia, String dia_despacho,
+    public void GuardarCSV(String dia_despacho,
             String pantallas_alm, String botones_alm, String pincarga_alm, String camara_alm,
-            String pantallas_j, String botones_j, String pincarga_j, String camara_j, String ensamblador_j,
-            String pantallas_a, String botones_a, String pincarga_a, String camara_a, String ensamblador_a) {
+            String pantallas_j, String botones_j, String pincarga_j, String camara_j, String ensamblador_j, String gastos_j, String ganancias_j, String telefonos_j,
+            String pantallas_a, String botones_a, String pincarga_a, String camara_a, String ensamblador_a, String gastos_a, String ganancias_a, String telefonos_a) {
         
-        String[] data = generarData(duracion_dia,dia_despacho,
-            pantallas_alm,botones_alm,pincarga_alm,camara_alm,
-            pantallas_j, botones_j, pincarga_j,  camara_j,  ensamblador_j,
-            pantallas_a, botones_a,  pincarga_a,  camara_a,  ensamblador_a);
+        String[] data = generarData(dia_despacho, pantallas_alm,botones_alm,pincarga_alm,camara_alm, pantallas_j,botones_j,pincarga_j,camara_j,ensamblador_j,gastos_j,ganancias_j,telefonos_j, pantallas_a,botones_a,pincarga_a,camara_a,ensamblador_a,gastos_a,ganancias_a,telefonos_a);
         
         try {
             File file = new File("test\\dash.csv");
             if (!file.exists()) {
                 file.createNewFile();
+                escribir = new FileWriter(file,true);
+                linea = new PrintWriter(escribir);
+                linea.println(Arrays.toString(data));
+                linea.close();
+                escribir.close();
             } else {
-                CsvWriter csvwriter = new CsvWriter("test\\dash.csv");
-                for (int i = 0; i < data.length; i++) {
-                    String [] line = data[i].split(",");
-                    csvwriter.writeRecord(line);
+                escribir = new FileWriter(file,true);
+                linea = new PrintWriter(escribir);
+                linea.println(Arrays.toString(data));
+                linea.close();
+                escribir.close();
                 }
-                csvwriter.close();
-            }
+            
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, "ERROR AL LEER");
         }

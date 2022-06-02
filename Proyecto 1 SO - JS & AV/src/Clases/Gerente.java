@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Clases.Funciones_dash;
 
 
 /*
@@ -22,6 +23,10 @@ public class Gerente extends Thread {
     
     Semaphore mutex_calendario;
     int id;
+    public Funciones_dash txt;
+    public String info_dash[];
+    
+    
     
     public Gerente(Semaphore mutex_calendario, int id){
         this.mutex_calendario=mutex_calendario;
@@ -30,6 +35,9 @@ public class Gerente extends Thread {
     }
     @Override
     public void run(){
+        //this.info_dash = txt.leerCSV();
+        this.txt = new Funciones_dash();
+        
         while (maininterfaz.dias_despacho>0 || maininterfaz.dias_despacho_ale>0) {
             
             try {
@@ -103,19 +111,30 @@ public class Gerente extends Thread {
                   periodo_real= periodo;                 
               }
               
+              
+              
               if (maininterfaz.dias_despacho == 0){
                   maininterfaz.jTextField37.setText(maininterfaz.jTextField11.getText());
                   
                   int ganancias = (Integer.parseInt(maininterfaz.jTextField37.getText())*1050) - (maininterfaz.salario_total_1);
                   maininterfaz.jTextField38.setText(Integer.toString(ganancias));
+                  
+                  
+                  
+                  
+                  
               } 
               
               if (maininterfaz.dias_despacho_ale == 0){
                  maininterfaz.jTextField31.setText(maininterfaz.jTextField25.getText());
                   
                   int ganancias = (Integer.parseInt(maininterfaz.jTextField31.getText())*1199) - (maininterfaz.salario_total_2);
-                  maininterfaz.jTextField32.setText(Integer.toString(ganancias)); 
+                  maininterfaz.jTextField32.setText(Integer.toString(ganancias));
+                  
+                 
               }
+              
+              
               
             
             
@@ -123,8 +142,11 @@ public class Gerente extends Thread {
             } catch (InterruptedException ex) {
                 Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
             }
+
             
         }
+        
+
     }
     
     
