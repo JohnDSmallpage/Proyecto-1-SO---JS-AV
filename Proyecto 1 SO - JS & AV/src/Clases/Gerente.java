@@ -44,26 +44,26 @@ public class Gerente extends Thread {
             int random= num_aleatorio.nextInt(l_superior-l_inferior+1) + l_inferior;
             long periodo = (new Long(random)).longValue();
               
-            long restante= maininterfaz.dia_duracion-periodo;
-           
-            
-            mutex_calendario.acquire();
-            
-                if (id==0) {
-                    maininterfaz.jTextField33.setText("Calendario");
-                    Thread.sleep(restante); 
-                }
-                else{
-                   maininterfaz.jTextField23.setText("Calendario");
-                   Thread.sleep(restante); 
-                }
-                
-            mutex_calendario.release();
+//            long restante= maininterfaz.dia_duracion-periodo;
+//           
+//            
+//            mutex_calendario.acquire();
+//            
+//                if (id==0) {
+//                    maininterfaz.jTextField33.setText("Calendario");
+//                    Thread.sleep(restante); 
+//                }
+//                else{
+//                   maininterfaz.jTextField23.setText("Calendario");
+//                   Thread.sleep(restante); 
+//                }
+//                
+//            mutex_calendario.release();
             
             
             long periodo_real= periodo;
               
-              while (periodo_real>0 && (maininterfaz.dias_despacho>0 || maininterfaz.dias_despacho_ale>0)) {
+              while (maininterfaz.dias_despacho>0 || maininterfaz.dias_despacho_ale>0) {
                   double min_inferior= (1/48f)*maininterfaz.dia_duracion;
                   double min_superior= (1/16f)*maininterfaz.dia_duracion;
                   
@@ -74,11 +74,6 @@ public class Gerente extends Thread {
 
                   int random_m= (int) (num_aleatorio.nextInt(m_superior-m_inferior+1) + min_inferior);
                   long sorpresa = (new Long(random_m)).longValue();
-                  System.out.println(sorpresa);
-                  
-                  System.out.println("John: " + maininterfaz.jugando);
-                  System.out.println("");
-                  System.out.println("ale: " + maininterfaz.jugando_ale);
                   if (id==0) {
                       Thread.sleep(sorpresa);
                       periodo_real-=sorpresa;
@@ -99,6 +94,10 @@ public class Gerente extends Thread {
                           maininterfaz.jTextField23.setText("Atrapó al jefe");
                       }
                   }
+                  random= num_aleatorio.nextInt(l_superior-l_inferior+1) + l_inferior;
+                  periodo = new Long(random);
+                  periodo_real= periodo;
+                  System.out.println(periodo);
                   
               }
             
