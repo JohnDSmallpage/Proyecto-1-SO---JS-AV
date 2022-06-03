@@ -446,7 +446,7 @@ public class configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        System.out.println(jTextField3.getText());
+
         if ((jTextField3.getText().equals("INFINITO")) && (jTextField4.getText().equals("INFINITO")) && (jTextField5.getText().equals("INFINITO")) && (jTextField6.getText().equals("INFINITO"))){
             info[0] = Integer.toString(Integer.parseInt(jTextField1.getText())*1000);
             info[1] = jTextField2.getText();

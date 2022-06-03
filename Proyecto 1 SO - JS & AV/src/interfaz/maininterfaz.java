@@ -115,7 +115,6 @@ public class maininterfaz extends javax.swing.JFrame {
     public static int salario_total_1;
     public static int salario_total_2;
     public static boolean dia_pasado;
-    public static Día dia_actual;
     public static boolean jugando;
     public static boolean jugando_ale;
     public static int contador_jefe;
@@ -2037,9 +2036,19 @@ public class maininterfaz extends javax.swing.JFrame {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-        start=true;
-        Día dia_actual= new Día(0);
-        dia_actual.start();
+        
+        
+        try{
+        while(start==true){
+            //JOptionPane.showMessageDialog(null,"El Programa se está ejecutando");
+            return;
+        }
+        
+        this.start=true;
+        
+        
+        //Día dia_actual= new Día(0);
+        //dia_actual.start();
         Jefe jefe = new Jefe(ci_john, mutex_jefe, 0);
         Jefe jefe_ale= new Jefe(ci_ale, mutex_jefe_ale, 1);
         Gerente gerente= new Gerente(mutex_jefe, 0);
@@ -2115,46 +2124,29 @@ public class maininterfaz extends javax.swing.JFrame {
             }
         }
         
-//        while (true){
-//            while (maininterfaz.dias_despacho == 0 && maininterfaz.dias_despacho_ale == 0){
-//                    dias_despacho = Integer.parseInt(info[1]);
-//                    dias_despacho_ale = Integer.parseInt(info[1]);
-//            
-//                    jTextField10.setText(Integer.toString(dias_despacho));
-//                    jTextField26.setText(Integer.toString(dias_despacho_ale));
-//                    
-//                    jefe = null;
-//                    jefe_ale = null;
-//                    gerente = null;
-//                    gerente_ale = null;
-//                    
-//                    break;
-//        
-//        }
-//            break;
-//        }
-        
-        
-        
-//        while (dias_despacho!=0) {            
-//            System.out.println("Dia: " + dias_despacho);
-//            System.out.println("Salario botones: " + salario_boton);
-//            System.out.println("Salario camara: " + salario_camara);
-//            System.out.println("Salario pantalla: " + salario_pantalla);
-//            System.out.println("Salario pines: " + salario_pin);
-//            System.out.println("Salario jefe: " + salario_jefe);
-//            System.out.println("Salario gerente: " + salario_gerente);
-//            System.out.println("");
-//        }
+        start = false;}
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "No puedes ejecutar el programa más de una vez");
+            return;
+        }
         
         
         
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        dash dash = new dash();
-        dash.setVisible(true);
-        this.dispose();
+     
+        try{
+            dash dash = new dash();
+            dash.setVisible(true);
+            this.dispose();
+        } 
+        catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR, No hay datos registrados");
+            maininterfaz maininterfaz = new maininterfaz();
+            maininterfaz.setVisible(true);
+            this.dispose(); 
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
@@ -2867,8 +2859,8 @@ public class maininterfaz extends javax.swing.JFrame {
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
         // TODO add your handling code here:
-                int suma_ale=Integer.parseInt(jTextField18.getText()) + Integer.parseInt(jTextField19.getText()) + Integer.parseInt(jTextField20.getText()) + Integer.parseInt(jTextField21.getText()) + Integer.parseInt(jTextField22.getText()) + 1 ;
-            if (suma_ale==15) {
+            int suma_ale=Integer.parseInt(jTextField18.getText()) + Integer.parseInt(jTextField19.getText()) + Integer.parseInt(jTextField20.getText()) + Integer.parseInt(jTextField21.getText()) + Integer.parseInt(jTextField22.getText()) + 1 ;
+            if (suma_ale==16) {
                 JOptionPane.showMessageDialog(null, "El número de Productores y Ensambladores para la Planta 1 no puede ser mayor a 15");
                 return;
             }

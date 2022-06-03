@@ -172,14 +172,7 @@ public class Jefe extends Thread {
                      maininterfaz.salario_total_2=maininterfaz.salario_boton_ale + maininterfaz.salario_camara_ale + maininterfaz.salario_pantalla_ale + maininterfaz.salario_pin_ale + maininterfaz.salario_jefe_ale + maininterfaz.salario_gerente_ale + maininterfaz.salario_ensam_ale;
                      maininterfaz.jTextField29.setText(Integer.toString(maininterfaz.salario_total_2));
                      
-                     maininterfaz.jugando_ale=true;
-                      maininterfaz.jTextField24.setText("Clash Royale");
-                      Thread.sleep(duracion_clash);
-                      maininterfaz.jugando_ale=false;
-                      maininterfaz.jTextField24.setText("Trabajando");
-                      if (maininterfaz.dia_pasado==false) {
-                          break;
-                      }
+                     
                      }       
                  }
               
@@ -248,7 +241,7 @@ public class Jefe extends Thread {
             
             
             catch (InterruptedException ex) {
-            Logger.getLogger(Día.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Jefe.class.getName()).log(Level.SEVERE, null, ex);
         }
 //              System.out.println("Dia " + i);
 //              i--;

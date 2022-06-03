@@ -2,19 +2,19 @@
 duracion_dia,1000
 dia_despacho,30
 --ALMACEN--
-pantallas_alm,45
-botones_alm,30
-pincarga_alm,40
-camara_alm,23
+pantallas_alm,40
+botones_alm,45
+pincarga_alm,15
+camara_alm,20
 --PRODUCTORES JOHN--
-pantallas_j,2
-botones_j,2
+pantallas_j,1
+botones_j,1
 pincarga_j,1
-camara_j,2
+camara_j,1
 ensamblador_j,1
 --PRODUCTORES ALE--
-pantallas_a,2
-botones_a,4
-pincarga_a,2
+pantallas_a,1
+botones_a,1
+pincarga_a,1
 camara_a,1
-ensamblador_a,2
+ensamblador_a,1
