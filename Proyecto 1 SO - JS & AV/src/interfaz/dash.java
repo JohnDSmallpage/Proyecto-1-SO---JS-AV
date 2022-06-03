@@ -49,14 +49,12 @@ public class dash extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         LEYENDA = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("ATRÁS");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,7 +71,6 @@ public class dash extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazimg/estadisticas2.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 80, 80));
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 310, 190));
 
         LEYENDA.setText("LEYENDA");
         LEYENDA.addActionListener(new java.awt.event.ActionListener() {
@@ -96,33 +93,23 @@ public class dash extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void LEYENDAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LEYENDAActionPerformed
-        String[] linea = maininterfaz.txt_dash.leerCSV();
-        String[] texto = null;
+        leyenda leyenda= new leyenda();
+        leyenda.setVisible(true);
         
-        DefaultTableModel modelo;
-        modelo= new  DefaultTableModel( );
         
-        tabla = new JTable(modelo);
+        
+       
         
         //panelBarra=new JScrollPane(tabla);
         //getContentPane().add(panelBarra);
         //panelBarra.reshape(80,50,300,300);
         
         
-        for (int i = 0; i < linea.length; i++) {
-            linea[i] = linea[i].replace("[","");
-            linea[i] = linea[i].replace("]","");
-            texto = linea[i].split(",");
-            modelo.addRow(texto);
-        }
         
-        JFrame frame = new JFrame("LEYENDA");
-        frame.add(tabla);
         
-        frame.setSize(400,400);
-        frame.setVisible(true);
         
-        String[] columnNames = {"ID", "Nombre", "Edad"};
+       
+        
         
         //JTable table = new JTable(data,columnNames);
         
@@ -175,6 +162,5 @@ public class dash extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
