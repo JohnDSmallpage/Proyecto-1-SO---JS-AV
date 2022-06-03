@@ -405,6 +405,8 @@ public class maininterfaz extends javax.swing.JFrame {
             array_ensam_ale[i]=hilo_ensam;
             
         }
+        
+        
        
     }
 
@@ -2112,6 +2114,27 @@ public class maininterfaz extends javax.swing.JFrame {
                 array_ensam_ale[i].start();
             }
         }
+        
+//        while (true){
+//            while (maininterfaz.dias_despacho == 0 && maininterfaz.dias_despacho_ale == 0){
+//                    dias_despacho = Integer.parseInt(info[1]);
+//                    dias_despacho_ale = Integer.parseInt(info[1]);
+//            
+//                    jTextField10.setText(Integer.toString(dias_despacho));
+//                    jTextField26.setText(Integer.toString(dias_despacho_ale));
+//                    
+//                    jefe = null;
+//                    jefe_ale = null;
+//                    gerente = null;
+//                    gerente_ale = null;
+//                    
+//                    break;
+//        
+//        }
+//            break;
+//        }
+        
+        
         
 //        while (dias_despacho!=0) {            
 //            System.out.println("Dia: " + dias_despacho);

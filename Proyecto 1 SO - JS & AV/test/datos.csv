@@ -14,7 +14,7 @@ camara_j,2
 ensamblador_j,1
 --PRODUCTORES ALE--
 pantallas_a,2
-botones_a,1
-pincarga_a,1
+botones_a,4
+pincarga_a,2
 camara_a,1
 ensamblador_a,2

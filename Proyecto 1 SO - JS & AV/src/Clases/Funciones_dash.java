@@ -61,7 +61,7 @@ public class Funciones_dash {
             String pantallas_j, String botones_j, String pincarga_j, String camara_j, String ensamblador_j, String gastos_j, String ganancias_j, String telefonos_j,
             String pantallas_a, String botones_a, String pincarga_a, String camara_a, String ensamblador_a, String gastos_a, String ganancias_a, String telefonos_a) {
         
-        String[] data = {dia_despacho, pantallas_alm, botones_alm, pincarga_alm, camara_alm, pantallas_j, botones_j, pincarga_j, camara_j, ensamblador_j, gastos_j, ganancias_j, telefonos_j, pantallas_a, botones_a, pincarga_a, camara_a, ensamblador_a, gastos_a, ganancias_a, telefonos_a};
+        String[] data = {dia_despacho,pantallas_alm,botones_alm,pincarga_alm,camara_alm,pantallas_j,botones_j,pincarga_j,camara_j,ensamblador_j,gastos_j,ganancias_j,telefonos_j,pantallas_a,botones_a,pincarga_a,camara_a,ensamblador_a,gastos_a,ganancias_a,telefonos_a};
         
         return data;
     }
@@ -71,7 +71,7 @@ public class Funciones_dash {
             String pantallas_j, String botones_j, String pincarga_j, String camara_j, String ensamblador_j, String gastos_j, String ganancias_j, String telefonos_j,
             String pantallas_a, String botones_a, String pincarga_a, String camara_a, String ensamblador_a, String gastos_a, String ganancias_a, String telefonos_a) {
         
-        String[] data = generarData(dia_despacho, pantallas_alm,botones_alm,pincarga_alm,camara_alm, pantallas_j,botones_j,pincarga_j,camara_j,ensamblador_j,gastos_j,ganancias_j,telefonos_j, pantallas_a,botones_a,pincarga_a,camara_a,ensamblador_a,gastos_a,ganancias_a,telefonos_a);
+        String[] data = generarData(dia_despacho,pantallas_alm,botones_alm,pincarga_alm,camara_alm,pantallas_j,botones_j,pincarga_j,camara_j,ensamblador_j,gastos_j,ganancias_j,telefonos_j, pantallas_a,botones_a,pincarga_a,camara_a,ensamblador_a,gastos_a,ganancias_a,telefonos_a);
         
         try {
             File file = new File("test\\dash.csv");
